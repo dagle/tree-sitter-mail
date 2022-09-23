@@ -1,0 +1,339 @@
+{
+  "name": "email",
+  "rules": {
+    "source_file": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "headers"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "mime"
+        }
+      ]
+    },
+    "headers": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "addressheader"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "dateheader"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "subjectheader"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "midheader"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "headerextra"
+          }
+        ]
+      }
+    },
+    "headerextra": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "headervalue"
+        }
+      ]
+    },
+    "addressheader": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "addrkind"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "address"
+        }
+      ]
+    },
+    "dateheader": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 2,
+              "content": {
+                "type": "PATTERN",
+                "value": "[dD][aA][tT][eE]"
+              }
+            }
+          },
+          "named": false,
+          "value": "date"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "date"
+        }
+      ]
+    },
+    "subjectheader": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 2,
+              "content": {
+                "type": "PATTERN",
+                "value": "[sS][uU][bB][jJ][eE][cC][tT]"
+              }
+            }
+          },
+          "named": false,
+          "value": "subject"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "subject"
+        }
+      ]
+    },
+    "midheader": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 2,
+              "content": {
+                "type": "PATTERN",
+                "value": "[mM][eE][sS][sS][aA][gG][eE][--][iI][dD]"
+              }
+            }
+          },
+          "named": false,
+          "value": "message-id"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "mid"
+        }
+      ]
+    },
+    "addrkind": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "to"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "from"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cc"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bcc"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "sender"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "replyto"
+        }
+      ]
+    },
+    "to": {
+      "type": "ALIAS",
+      "content": {
+        "type": "TOKEN",
+        "content": {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "PATTERN",
+            "value": "[tT][oO]"
+          }
+        }
+      },
+      "named": false,
+      "value": "to"
+    },
+    "from": {
+      "type": "ALIAS",
+      "content": {
+        "type": "TOKEN",
+        "content": {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "PATTERN",
+            "value": "[fF][rR][oO][mM]"
+          }
+        }
+      },
+      "named": false,
+      "value": "from"
+    },
+    "cc": {
+      "type": "ALIAS",
+      "content": {
+        "type": "TOKEN",
+        "content": {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "PATTERN",
+            "value": "[cC][cC]"
+          }
+        }
+      },
+      "named": false,
+      "value": "cc"
+    },
+    "bcc": {
+      "type": "ALIAS",
+      "content": {
+        "type": "TOKEN",
+        "content": {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "PATTERN",
+            "value": "[bB][cC][cC]"
+          }
+        }
+      },
+      "named": false,
+      "value": "bcc"
+    },
+    "sender": {
+      "type": "ALIAS",
+      "content": {
+        "type": "TOKEN",
+        "content": {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "PATTERN",
+            "value": "[sS][eE][nN][dD][eE][rR]"
+          }
+        }
+      },
+      "named": false,
+      "value": "sender"
+    },
+    "replyto": {
+      "type": "ALIAS",
+      "content": {
+        "type": "TOKEN",
+        "content": {
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "PATTERN",
+            "value": "[rR][eE][pP][lL][yY][--][tT][oO]"
+          }
+        }
+      },
+      "named": false,
+      "value": "reply-to"
+    },
+    "mid": {
+      "type": "PATTERN",
+      "value": ".+"
+    },
+    "subject": {
+      "type": "PATTERN",
+      "value": ".+"
+    },
+    "date": {
+      "type": "PATTERN",
+      "value": ".+"
+    },
+    "identifier": {
+      "type": "PATTERN",
+      "value": "[A-Za-z\\-]+"
+    },
+    "headervalue": {
+      "type": "PATTERN",
+      "value": ".+"
+    },
+    "address": {
+      "type": "PATTERN",
+      "value": ".+"
+    },
+    "mime": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "mimeline"
+      }
+    },
+    "mimeline": {
+      "type": "PATTERN",
+      "value": ".+"
+    }
+  },
+  "extras": [
+    {
+      "type": "PATTERN",
+      "value": "\\s"
+    }
+  ],
+  "conflicts": [],
+  "precedences": [],
+  "externals": [],
+  "inline": [],
+  "supertypes": []
+}
+

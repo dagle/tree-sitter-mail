@@ -1,0 +1,289 @@
+[
+  {
+    "type": "address",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "addressheader",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "address",
+          "named": true
+        },
+        {
+          "type": "addrkind",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "addrkind",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "bcc",
+          "named": true
+        },
+        {
+          "type": "cc",
+          "named": true
+        },
+        {
+          "type": "from",
+          "named": true
+        },
+        {
+          "type": "replyto",
+          "named": true
+        },
+        {
+          "type": "sender",
+          "named": true
+        },
+        {
+          "type": "to",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bcc",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "cc",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "date",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "dateheader",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "date",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "from",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "headerextra",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "headervalue",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "headers",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "addressheader",
+          "named": true
+        },
+        {
+          "type": "dateheader",
+          "named": true
+        },
+        {
+          "type": "headerextra",
+          "named": true
+        },
+        {
+          "type": "midheader",
+          "named": true
+        },
+        {
+          "type": "subjectheader",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "headervalue",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "mid",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "midheader",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "mid",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "mime",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "mimeline",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "mimeline",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "replyto",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "sender",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "source_file",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "headers",
+          "named": true
+        },
+        {
+          "type": "mime",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "subject",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "subjectheader",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "subject",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "to",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": "bcc",
+    "named": false
+  },
+  {
+    "type": "cc",
+    "named": false
+  },
+  {
+    "type": "date",
+    "named": false
+  },
+  {
+    "type": "from",
+    "named": false
+  },
+  {
+    "type": "identifier",
+    "named": true
+  },
+  {
+    "type": "message-id",
+    "named": false
+  },
+  {
+    "type": "reply-to",
+    "named": false
+  },
+  {
+    "type": "sender",
+    "named": false
+  },
+  {
+    "type": "subject",
+    "named": false
+  },
+  {
+    "type": "to",
+    "named": false
+  }
+]
