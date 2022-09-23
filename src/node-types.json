@@ -1,10 +1,5 @@
 [
   {
-    "type": "address",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "addressheader",
     "named": true,
     "fields": {},
@@ -13,11 +8,26 @@
       "required": true,
       "types": [
         {
-          "type": "address",
+          "type": "addresslist",
           "named": true
         },
         {
           "type": "addrkind",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "addresslist",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "mailbox",
           "named": true
         }
       ]
@@ -59,6 +69,25 @@
     }
   },
   {
+    "type": "addrspec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "domain",
+          "named": true
+        },
+        {
+          "type": "local",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "bcc",
     "named": true,
     "fields": {}
@@ -89,7 +118,27 @@
     }
   },
   {
+    "type": "domain",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "word",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "from",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "headerbody",
     "named": true,
     "fields": {}
   },
@@ -102,7 +151,7 @@
       "required": true,
       "types": [
         {
-          "type": "headervalue",
+          "type": "headerbody",
           "named": true
         },
         {
@@ -144,9 +193,34 @@
     }
   },
   {
-    "type": "headervalue",
+    "type": "local",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "word",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "mailbox",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "addrspec",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "mid",
@@ -163,21 +237,6 @@
       "types": [
         {
           "type": "mid",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "mime",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "mimeline",
           "named": true
         }
       ]
@@ -203,15 +262,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "headers",
-          "named": true
-        },
-        {
-          "type": "mime",
           "named": true
         }
       ]
@@ -243,7 +298,23 @@
     "fields": {}
   },
   {
+    "type": ".",
+    "named": false
+  },
+  {
     "type": ":",
+    "named": false
+  },
+  {
+    "type": "<",
+    "named": false
+  },
+  {
+    "type": ">",
+    "named": false
+  },
+  {
+    "type": "@",
     "named": false
   },
   {
@@ -285,5 +356,9 @@
   {
     "type": "to",
     "named": false
+  },
+  {
+    "type": "word",
+    "named": true
   }
 ]

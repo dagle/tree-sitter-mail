@@ -1,5 +1,5 @@
 {
-  "name": "email",
+  "name": "mail",
   "rules": {
     "source_file": {
       "type": "SEQ",
@@ -7,10 +7,6 @@
         {
           "type": "SYMBOL",
           "name": "headers"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "mime"
         }
       ]
     },
@@ -55,7 +51,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "headervalue"
+          "name": "headerbody"
         }
       ]
     },
@@ -72,7 +68,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "address"
+          "name": "addresslist"
         }
       ]
     },
@@ -302,15 +298,158 @@
     },
     "identifier": {
       "type": "PATTERN",
-      "value": "[A-Za-z\\-]+"
+      "value": "[^:^ ^\\t^\\n]+"
     },
-    "headervalue": {
-      "type": "PATTERN",
-      "value": ".+"
+    "headerbody": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_bodycontent"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_line_break"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_lwsp"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_bodycontent"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_line_break"
+        }
+      ]
     },
-    "address": {
+    "lwspp": {
       "type": "PATTERN",
-      "value": ".+"
+      "value": "[ \\t]"
+    },
+    "_bodycontent": {
+      "type": "PATTERN",
+      "value": "[^:^\\n]+"
+    },
+    "addresslist": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "mailbox"
+        }
+      ]
+    },
+    "mailbox": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "addrspec"
+        }
+      ]
+    },
+    "routeaddr": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "addrspec"
+        },
+        {
+          "type": "STRING",
+          "value": ">"
+        }
+      ]
+    },
+    "addrspec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "local"
+        },
+        {
+          "type": "STRING",
+          "value": "@"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "domain"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_line_break"
+        }
+      ]
+    },
+    "domain": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "word"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "."
+              },
+              {
+                "type": "SYMBOL",
+                "name": "word"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "local": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "word"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "."
+              },
+              {
+                "type": "SYMBOL",
+                "name": "word"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "word": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z\\-]+"
     },
     "mime": {
       "type": "REPEAT1",
@@ -332,7 +471,16 @@
   ],
   "conflicts": [],
   "precedences": [],
-  "externals": [],
+  "externals": [
+    {
+      "type": "SYMBOL",
+      "name": "_line_break"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_lwsp"
+    }
+  ],
   "inline": [],
   "supertypes": []
 }

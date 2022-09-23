@@ -1,11 +1,19 @@
 module.exports = grammar({
-  name: 'email',
+  name: 'mail',
+  
+  externals: $ => [
+	$._line_break,
+	$._lwsp
+    // $.indent,
+    // $.dedent,
+    // $.newline
+  ],
 
   rules: {
     // TODO: add the actual grammar rules
     source_file: $ => seq(
 		$.headers,
-		$.mime
+		// $.mime
 	),
 	headers: $ => repeat1(choice(
 		$.addressheader,
@@ -19,15 +27,16 @@ module.exports = grammar({
 		// prec(1, $.subjectheader),
 		// prec(2, $.midheader),
 	)),
-	headerextra: $ => seq(
-		$.identifier,
-		':',
-		$.headervalue
-	),
+	headerextra: $ =>
+		seq(
+			$.identifier,
+			':',
+			$.headerbody,
+		),
 	addressheader: $ => seq(
 		$.addrkind,
 		':',
-		$.address,
+		$.addresslist,
 	),
 	dateheader: $ => seq(
 		reservedWord("date"),
@@ -67,13 +76,33 @@ module.exports = grammar({
 
 	// identifier: $ => /[a-z]+/,
 	// identifier: $ => /[a-z]+/,
-	identifier: $ => /[A-Za-z\-]+/,
+	identifier: $ => /[^:^ ^\t^\n]+/,
+	// identifier: $ => "autosubmitted",
 	// todo-multiline etc
-	headervalue: $ => /.+/,
-	address: $ => choice(
+	headerbody: $ => seq($._bodycontent, repeat(seq($._line_break, $._lwsp, $._bodycontent)), $._line_break),
+	lwspp: $ => /[ \t]/,
+	_bodycontent: $ => /[^:^\n]+/,
+	addresslist: $ => choice(
 		$.mailbox,
 		// $.mailgroup,
-	)
+	),
+	mailbox: $ => choice(
+		$.addrspec,
+		// seq($.phrase, $.routeaddr)
+	),
+	// fix this
+	// phrase: $ => /[^<\n,]+/,
+	routeaddr: $ => seq(
+		"<",
+		$.addrspec,
+		">",
+	),
+	// don't insert newline here butin addrlist
+	addrspec: $ => seq($.local, "@", $.domain, $._line_break),
+	domain: $ => seq($.word, repeat(seq(".", $.word))),
+	local: $ => seq($.word, repeat(seq(".", $.word))),
+	// word: $ => /[^)<>@ \t]+/,
+	word: $ => /[a-zA-Z\-]+/,
 	
 	mime: $ => repeat1($.mimeline),
 	// mime: $ => /.*/,
