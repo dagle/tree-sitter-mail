@@ -22,8 +22,7 @@ unsigned tree_sitter_mail_external_scanner_serialize(
   void *payload,
   char *buffer
 ) {
-  // ...
-  return 5;
+  return 0;
 }
 
 void tree_sitter_mail_external_scanner_deserialize(
@@ -31,7 +30,6 @@ void tree_sitter_mail_external_scanner_deserialize(
   const char *buffer,
   unsigned length
 ) {
-  // ...
 }
 
 bool tree_sitter_mail_external_scanner_scan(
@@ -40,12 +38,12 @@ bool tree_sitter_mail_external_scanner_scan(
   const bool *valid_symbols
 ) {
   if (lexer->lookahead == '\n') {
-	  lexer->advance(lexer, false);
+	  lexer->advance(lexer, true);
 	  lexer->result_symbol = LINE_BREAK;
 	  return true;
   }
   if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
-	  lexer->advance(lexer, false);
+	  lexer->advance(lexer, true);
 	  lexer->result_symbol = LWSP;
 	  return true;
   }

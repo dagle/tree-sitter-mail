@@ -1,5 +1,10 @@
 [
   {
+    "type": "actions",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "addressheader",
     "named": true,
     "fields": {},
@@ -137,6 +142,11 @@
     }
   },
   {
+    "type": "emailbody",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "fieldbody",
     "named": true,
     "fields": {},
@@ -150,6 +160,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "footer",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "from",
@@ -222,6 +237,11 @@
     }
   },
   {
+    "type": "index",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "local",
     "named": true,
     "fields": {},
@@ -268,11 +288,15 @@
       "required": true,
       "types": [
         {
-          "type": "headers",
+          "type": "emailbody",
           "named": true
         },
         {
-          "type": "mime",
+          "type": "footer",
+          "named": true
+        },
+        {
+          "type": "headers",
           "named": true
         }
       ]
@@ -299,7 +323,7 @@
     }
   },
   {
-    "type": "mime",
+    "type": "newfile",
     "named": true,
     "fields": {},
     "children": {
@@ -307,16 +331,69 @@
       "required": true,
       "types": [
         {
-          "type": "mimeline",
+          "type": "dirname",
+          "named": true
+        },
+        {
+          "type": "file",
+          "named": true
+        },
+        {
+          "type": "filetype",
+          "named": true
+        },
+        {
+          "type": "footer",
+          "named": true
+        },
+        {
+          "type": "source",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "mimeline",
+    "type": "oldfile",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "dirname",
+          "named": true
+        },
+        {
+          "type": "file",
+          "named": true
+        },
+        {
+          "type": "filetype",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "patch",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "newfile",
+          "named": true
+        },
+        {
+          "type": "oldfile",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "phrase",
@@ -369,6 +446,11 @@
     "fields": {}
   },
   {
+    "type": "source",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "subject",
     "named": true,
     "fields": {}
@@ -398,11 +480,27 @@
     "named": false
   },
   {
+    "type": "+++",
+    "named": false
+  },
+  {
     "type": ",",
     "named": false
   },
   {
+    "type": "-- \n",
+    "named": false
+  },
+  {
+    "type": "---",
+    "named": false
+  },
+  {
     "type": ".",
+    "named": false
+  },
+  {
+    "type": "..",
     "named": false
   },
   {
@@ -430,15 +528,43 @@
     "named": false
   },
   {
+    "type": "combined",
+    "named": false
+  },
+  {
     "type": "date",
     "named": false
+  },
+  {
+    "type": "diff --",
+    "named": false
+  },
+  {
+    "type": "dirname",
+    "named": true
   },
   {
     "type": "fieldname",
     "named": true
   },
   {
+    "type": "file",
+    "named": true
+  },
+  {
+    "type": "filetype",
+    "named": true
+  },
+  {
     "type": "from",
+    "named": false
+  },
+  {
+    "type": "git",
+    "named": false
+  },
+  {
+    "type": "index",
     "named": false
   },
   {
