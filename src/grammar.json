@@ -1,12 +1,20 @@
 {
   "name": "mail",
   "rules": {
-    "source_file": {
+    "message": {
       "type": "SEQ",
       "members": [
         {
           "type": "SYMBOL",
           "name": "headers"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_line_break"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "mime"
         }
       ]
     },
@@ -43,7 +51,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "identifier"
+          "name": "fieldname"
         },
         {
           "type": "STRING",
@@ -51,7 +59,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "headerbody"
+          "name": "fieldbody"
         }
       ]
     },
@@ -285,22 +293,49 @@
       "value": "reply-to"
     },
     "mid": {
-      "type": "PATTERN",
-      "value": ".+"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": ".+"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_line_break"
+        }
+      ]
     },
     "subject": {
-      "type": "PATTERN",
-      "value": ".+"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": ".+"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_line_break"
+        }
+      ]
     },
     "date": {
-      "type": "PATTERN",
-      "value": ".+"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": ".+"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_line_break"
+        }
+      ]
     },
-    "identifier": {
+    "fieldname": {
       "type": "PATTERN",
-      "value": "[^:^ ^\\t^\\n]+"
+      "value": "[^:\\t\\n]+"
     },
-    "headerbody": {
+    "fieldbody": {
       "type": "SEQ",
       "members": [
         {
@@ -314,11 +349,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "_line_break"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_lwsp"
+                "name": "seperator"
               },
               {
                 "type": "SYMBOL",
@@ -333,6 +364,31 @@
         }
       ]
     },
+    "seperator": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_lwsp"
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_line_break"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_lwsp"
+              }
+            ]
+          }
+        ]
+      }
+    },
     "lwspp": {
       "type": "PATTERN",
       "value": "[ \\t]"
@@ -342,6 +398,47 @@
       "value": "[^:^\\n]+"
     },
     "addresslist": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "ia"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "seperator"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              },
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "ia"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_line_break"
+        }
+      ]
+    },
+    "ia": {
       "type": "CHOICE",
       "members": [
         {
@@ -356,6 +453,19 @@
         {
           "type": "SYMBOL",
           "name": "addrspec"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "phrase"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "routeaddr"
+            }
+          ]
         }
       ]
     },
@@ -390,10 +500,6 @@
         {
           "type": "SYMBOL",
           "name": "domain"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_line_break"
         }
       ]
     },
@@ -402,7 +508,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "word"
+          "name": "_word"
         },
         {
           "type": "REPEAT",
@@ -415,7 +521,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "word"
+                "name": "_word"
               }
             ]
           }
@@ -427,7 +533,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "word"
+          "name": "_word"
         },
         {
           "type": "REPEAT",
@@ -440,22 +546,72 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "word"
+                "name": "_word"
               }
             ]
           }
         }
       ]
     },
-    "word": {
+    "phrase": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_word"
+      }
+    },
+    "_word": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_atom"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "quotedstring"
+        }
+      ]
+    },
+    "_specails": {
       "type": "PATTERN",
-      "value": "[a-zA-Z\\-]+"
+      "value": "[<>,;:\\\\@\\\".\\[\\]]"
+    },
+    "_atom": {
+      "type": "PATTERN",
+      "value": "[^. <>,;:\\\\@\\\".\\[\\]\\n]+"
+    },
+    "quotedstring": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "\""
+        },
+        {
+          "type": "PATTERN",
+          "value": "[^\\\"]*"
+        },
+        {
+          "type": "STRING",
+          "value": "\""
+        }
+      ]
     },
     "mime": {
       "type": "REPEAT1",
       "content": {
-        "type": "SYMBOL",
-        "name": "mimeline"
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "mimeline"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_line_break"
+          }
+        ]
       }
     },
     "mimeline": {

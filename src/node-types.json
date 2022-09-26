@@ -23,11 +23,15 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "mailbox",
+          "type": "ia",
+          "named": true
+        },
+        {
+          "type": "seperator",
           "named": true
         }
       ]
@@ -123,10 +127,25 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
-          "type": "word",
+          "type": "quotedstring",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "fieldbody",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "seperator",
           "named": true
         }
       ]
@@ -134,11 +153,6 @@
   },
   {
     "type": "from",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "headerbody",
     "named": true,
     "fields": {}
   },
@@ -151,11 +165,11 @@
       "required": true,
       "types": [
         {
-          "type": "headerbody",
+          "type": "fieldbody",
           "named": true
         },
         {
-          "type": "identifier",
+          "type": "fieldname",
           "named": true
         }
       ]
@@ -193,15 +207,30 @@
     }
   },
   {
+    "type": "ia",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "mailbox",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "local",
     "named": true,
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
-          "type": "word",
+          "type": "quotedstring",
           "named": true
         }
       ]
@@ -212,11 +241,38 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "addrspec",
+          "named": true
+        },
+        {
+          "type": "phrase",
+          "named": true
+        },
+        {
+          "type": "routeaddr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "message",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "headers",
+          "named": true
+        },
+        {
+          "type": "mime",
           "named": true
         }
       ]
@@ -243,7 +299,42 @@
     }
   },
   {
+    "type": "mime",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "mimeline",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "mimeline",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "phrase",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "quotedstring",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "quotedstring",
     "named": true,
     "fields": {}
   },
@@ -253,12 +344,7 @@
     "fields": {}
   },
   {
-    "type": "sender",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "source_file",
+    "type": "routeaddr",
     "named": true,
     "fields": {},
     "children": {
@@ -266,11 +352,21 @@
       "required": true,
       "types": [
         {
-          "type": "headers",
+          "type": "addrspec",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "sender",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "seperator",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "subject",
@@ -296,6 +392,14 @@
     "type": "to",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "\"",
+    "named": false
+  },
+  {
+    "type": ",",
+    "named": false
   },
   {
     "type": ".",
@@ -330,12 +434,12 @@
     "named": false
   },
   {
-    "type": "from",
-    "named": false
+    "type": "fieldname",
+    "named": true
   },
   {
-    "type": "identifier",
-    "named": true
+    "type": "from",
+    "named": false
   },
   {
     "type": "message-id",
@@ -356,9 +460,5 @@
   {
     "type": "to",
     "named": false
-  },
-  {
-    "type": "word",
-    "named": true
   }
 ]

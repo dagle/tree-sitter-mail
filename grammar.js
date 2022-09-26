@@ -11,9 +11,10 @@ module.exports = grammar({
 
   rules: {
     // TODO: add the actual grammar rules
-    source_file: $ => seq(
+    message: $ => seq(
 		$.headers,
-		// $.mime
+		$._line_break,
+		$.mime
 	),
 	headers: $ => repeat1(choice(
 		$.addressheader,
@@ -21,17 +22,13 @@ module.exports = grammar({
 		$.subjectheader,
 		$.midheader,
 		$.headerextra,
-		// prec(1, $.headerextra,
-		// prec(1, $.addressheader,
-		// prec(1, $.dateheader,
-		// prec(1, $.subjectheader),
-		// prec(2, $.midheader),
 	)),
 	headerextra: $ =>
 		seq(
-			$.identifier,
+			$.fieldname,
+			// token(prec(-1, $.fieldname)),
 			':',
-			$.headerbody,
+			$.fieldbody,
 		),
 	addressheader: $ => seq(
 		$.addrkind,
@@ -62,6 +59,7 @@ module.exports = grammar({
 		$.sender,
 		$.replyto,
 	),
+	// mimetest: $ => seq($._line_break, token(prec(-1, /[A-Za-z]+/))),
 
 	to: $ => reservedWord("to"),
 	from: $ => reservedWord("from"),
@@ -70,52 +68,66 @@ module.exports = grammar({
 	sender: $ => reservedWord("sender"),
 	replyto: $ => reservedWord("reply-to"),
 	
-	mid: $ => /.+/,
-	subject: $ => /.+/,
-	date: $ => /.+/,
+	mid: $ => seq(/.+/, $._line_break),
+	subject: $ => seq(/.+/, $._line_break),
+	date: $ => seq(/.+/, $._line_break),
 
-	// identifier: $ => /[a-z]+/,
-	// identifier: $ => /[a-z]+/,
-	identifier: $ => /[^:^ ^\t^\n]+/,
-	// identifier: $ => "autosubmitted",
-	// todo-multiline etc
-	headerbody: $ => seq($._bodycontent, repeat(seq($._line_break, $._lwsp, $._bodycontent)), $._line_break),
+	fieldname: $ => /[^:\t\n]+/,
+	fieldbody: $ => seq($._bodycontent, repeat(seq($.seperator, $._bodycontent)), $._line_break),
+	seperator: $ => repeat1(choice(
+		$._lwsp,
+		seq($._line_break, $._lwsp)
+	)),
 	lwspp: $ => /[ \t]/,
 	_bodycontent: $ => /[^:^\n]+/,
-	addresslist: $ => choice(
+	addresslist: $ => seq(
+		$.ia,
+		repeat(seq(optional($.seperator), ",", $.ia)),
+		$._line_break,
+	),
+	ia: $ => choice(
 		$.mailbox,
 		// $.mailgroup,
 	),
 	mailbox: $ => choice(
 		$.addrspec,
-		// seq($.phrase, $.routeaddr)
+		seq($.phrase, $.routeaddr)
 	),
-	// fix this
-	// phrase: $ => /[^<\n,]+/,
 	routeaddr: $ => seq(
 		"<",
 		$.addrspec,
 		">",
 	),
+
 	// don't insert newline here butin addrlist
-	addrspec: $ => seq($.local, "@", $.domain, $._line_break),
-	domain: $ => seq($.word, repeat(seq(".", $.word))),
-	local: $ => seq($.word, repeat(seq(".", $.word))),
-	// word: $ => /[^)<>@ \t]+/,
-	word: $ => /[a-zA-Z\-]+/,
+	addrspec: $ => seq($.local, "@", $.domain),
+	domain: $ => seq($._word, repeat(seq(".", $._word))),
+	local: $ => seq($._word, repeat(seq(".", $._word))),
+	phrase: $ => repeat1($._word),
+	_word: $ => choice(
+		$._atom,
+		$.quotedstring,
+	),
+	_specails: $ => /[<>,;:\\@\".\[\]]/,
+	_atom: $ => /[^. <>,;:\\@\".\[\]\n]+/,
+	quotedstring: $ => seq(
+		"\"",
+		// We should be able to match \" and not terminate
+		/[^\"]*/,
+		"\""
+	),
 	
-	mime: $ => repeat1($.mimeline),
-	// mime: $ => /.*/,
+	// mime: $ => repeat1(seq($.mimeline, $._line_break)),
+	mime: $ => repeat1(seq($.mimeline, $._line_break)),
 	mimeline: $ => /.+/,
   }
 })
-function reserved(regex) {
-  return token(prec(2, new RegExp(regex)))
+function reservedWord(word) {
+  return alias(reserved(caseInsensitive(word)), word)
 }
 
-function reservedWord(word) {
-  //return word
-  return alias(reserved(caseInsensitive(word)), word)
+function reserved(regex) {
+  return token(prec(2, new RegExp(regex)))
 }
 
 function caseInsensitive(word) {
