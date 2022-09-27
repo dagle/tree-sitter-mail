@@ -666,7 +666,7 @@
           },
           {
             "type": "SYMBOL",
-            "name": "quoted1"
+            "name": "_quoted"
           },
           {
             "type": "SYMBOL",
@@ -686,23 +686,181 @@
         }
       }
     },
-    "quoted1": {
+    "_quote": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": -1,
+        "content": {
+          "type": "PATTERN",
+          "value": "[ \\t]*>"
+        }
+      }
+    },
+    "quote1": {
       "type": "SEQ",
       "members": [
         {
-          "type": "TOKEN",
-          "content": {
-            "type": "PREC",
-            "value": -1,
-            "content": {
-              "type": "PATTERN",
-              "value": "([ \\t]*>[ \\t]*)"
-            }
-          }
+          "type": "SYMBOL",
+          "name": "_quote"
         },
         {
           "type": "SYMBOL",
           "name": "line"
+        }
+      ]
+    },
+    "quote2": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_quote"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_quote"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "line"
+        }
+      ]
+    },
+    "quote3": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_quote"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_quote"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_quote"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "line"
+        }
+      ]
+    },
+    "quote4": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_quote"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_quote"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_quote"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_quote"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "line"
+        }
+      ]
+    },
+    "quote5": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_quote"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_quote"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_quote"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_quote"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_quote"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "line"
+        }
+      ]
+    },
+    "quote6": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_quote"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_quote"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_quote"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_quote"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_quote"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_quote"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "line"
+        }
+      ]
+    },
+    "_quoted": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "quote1"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "quote2"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "quote3"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "quote4"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "quote5"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "quote6"
         }
       ]
     },
@@ -757,8 +915,11 @@
           "value": ".+"
         },
         {
-          "type": "SYMBOL",
-          "name": "index"
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "actions"
+          }
         },
         {
           "type": "SYMBOL",
@@ -767,19 +928,135 @@
       ]
     },
     "actions": {
-      "type": "PATTERN",
-      "value": ".+"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "old"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "newmode"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "deleted"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "newfile"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "copyfrom"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "copyto"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "renamefrom"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "renameto"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "similarity"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "dissimilarity"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "index"
+        }
+      ]
     },
-    "index": {
+    "_hash": {
+      "type": "PATTERN",
+      "value": "[\\da-f]+"
+    },
+    "_mode": {
+      "type": "PATTERN",
+      "value": "\\d+"
+    },
+    "_path": {
+      "type": "PATTERN",
+      "value": "\\w"
+    },
+    "old": {
       "type": "SEQ",
       "members": [
         {
           "type": "STRING",
-          "value": "index"
+          "value": "old"
         },
         {
-          "type": "PATTERN",
-          "value": "[\\da-f]+"
+          "type": "STRING",
+          "value": "mode"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_mode"
+        }
+      ]
+    },
+    "newmode": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "new"
+        },
+        {
+          "type": "STRING",
+          "value": "mode"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_mode"
+        }
+      ]
+    },
+    "deleted": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "deleted"
+        },
+        {
+          "type": "STRING",
+          "value": "file"
+        },
+        {
+          "type": "STRING",
+          "value": "mode"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_mode"
+        }
+      ]
+    },
+    "newfile": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "+++"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "dirname"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "file"
         },
         {
           "type": "CHOICE",
@@ -789,11 +1066,11 @@
               "members": [
                 {
                   "type": "STRING",
-                  "value": ".."
+                  "value": "."
                 },
                 {
-                  "type": "PATTERN",
-                  "value": "[\\da-f]+"
+                  "type": "SYMBOL",
+                  "name": "filetype"
                 }
               ]
             },
@@ -803,11 +1080,138 @@
           ]
         },
         {
+          "type": "SYMBOL",
+          "name": "diff"
+        }
+      ]
+    },
+    "copyfrom": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "copy"
+        },
+        {
+          "type": "STRING",
+          "value": "from"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_path"
+        }
+      ]
+    },
+    "copyto": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "copy"
+        },
+        {
+          "type": "STRING",
+          "value": "to"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_path"
+        }
+      ]
+    },
+    "renamefrom": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "rename"
+        },
+        {
+          "type": "STRING",
+          "value": "from"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_path"
+        }
+      ]
+    },
+    "renameto": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "rename"
+        },
+        {
+          "type": "STRING",
+          "value": "to"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_path"
+        }
+      ]
+    },
+    "similarity": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "similarity"
+        },
+        {
+          "type": "STRING",
+          "value": "index"
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\d+"
+        }
+      ]
+    },
+    "dissimilarity": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "dissimilarity"
+        },
+        {
+          "type": "STRING",
+          "value": "index"
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\d+"
+        }
+      ]
+    },
+    "index": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "index"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_hash"
+        },
+        {
+          "type": "STRING",
+          "value": ".."
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_hash"
+        },
+        {
           "type": "CHOICE",
           "members": [
             {
-              "type": "PATTERN",
-              "value": "\\d+"
+              "type": "SYMBOL",
+              "name": "_path"
             },
             {
               "type": "BLANK"
@@ -823,7 +1227,7 @@
         "value": -1,
         "content": {
           "type": "PATTERN",
-          "value": "([^\\s\\/]+\\/)+"
+          "value": "\\/?([^\\s\\/]+\\/)+"
         }
       }
     },
@@ -890,48 +1294,6 @@
               "type": "BLANK"
             }
           ]
-        }
-      ]
-    },
-    "newfile": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "+++"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "dirname"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "file"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "."
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "filetype"
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "diff"
         }
       ]
     },

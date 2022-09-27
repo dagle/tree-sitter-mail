@@ -4,10 +4,21 @@
 enum TokenType {
   LINE_BREAK,
   LWSP,
-  // INDENT,
-  // DEDENT,
-  // NEWLINE
+  MAILQUOTE1,
+  // MAILQOUTE2,
+  // MAILQOUTE3,
+  // MAILQOUTE4,
+  // MAILQOUTE5,
+  // MAILQOUTE6,
+  // MAILQOUTE7,
+  // MAILQOUTE8,
+  // MAILQOUTE9,
+  // MAILQOUTE10,
+  // MAILQOUTE11,
+  // MAILQOUTE12,
 };
+
+#define min(a, b) ((a) < (b) ? (a) : (b))
 
 // We don't really need a
 void * tree_sitter_mail_external_scanner_create() {
@@ -30,6 +41,29 @@ void tree_sitter_mail_external_scanner_deserialize(
   const char *buffer,
   unsigned length
 ) {
+}
+
+bool qoute_line(TSLexer *lexer) {
+	int level = 0;
+	int prefix_space = 0;
+	return false;
+	while (true) {
+		if (lexer->lookahead == ' ' || lexer->lookahead == '\t') {
+			lexer->advance(lexer, true);
+			prefix_space++;
+		}
+		else 
+			if (lexer->lookahead == '>') {
+			lexer->advance(lexer, true);
+			level++;
+		} else {
+			if (level == 0) {
+				return false;
+			}
+			lexer->result_symbol = MAILQUOTE1;
+			return true;
+		}
+	}
 }
 
 bool tree_sitter_mail_external_scanner_scan(

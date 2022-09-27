@@ -1,30 +1,27 @@
+// I feel like this is really slow (idk for a fact that it is)
+// Somebody good at treesitter should fix it
 module.exports = grammar({
   name: 'mail',
   
   externals: $ => [
 	$._line_break,
-	$._lwsp
-    // $.indent,
-    // $.dedent,
-    // $.newline
+	$._lwsp,
   ],
 
   rules: {
-    // TODO: add the actual grammar rules
     message: $ => seq(
 		// optional($.specialFrom)
 		$.headers,
-		// optional($._line_break),
-		optional($._line_break),
 		optional($.emailbody),
 		optional($.footer),
 	),
-	headers: $ => repeat1(choice(
-		$.addressheader,
-		$.dateheader,
-		$.subjectheader,
-		$.midheader,
-		$.headerextra,
+	headers: $ => repeat1(seq(
+		choice(
+			$.addressheader,
+			$.dateheader,
+			$.subjectheader,
+			$.midheader,
+			$.headerextra),
 	)),
 	specialFrom: $ => seq(
 		reservedWord("from"),
@@ -66,8 +63,6 @@ module.exports = grammar({
 		$.sender,
 		$.replyto,
 	),
-	// mimetest: $ => seq(token(prec(-1, /[A-Za-z]+/)), $._line_break),
-
 	to: $ => reservedWord("to"),
 	from: $ => reservedWord("from"),
 	cc: $ => reservedWord("cc"),
@@ -75,12 +70,12 @@ module.exports = grammar({
 	sender: $ => reservedWord("sender"),
 	replyto: $ => reservedWord("reply-to"),
 	
-	mid: $ => seq(/.+/, $._line_break),
-	subject: $ => seq(/.+/, $._line_break),
-	date: $ => seq(/.+/, $._line_break),
+	mid: $ => /.+/,
+	subject: $ => /.+/,
+	date: $ => /.+/,
 
 	fieldname: $ => /[^:\t\n]+/,
-	fieldbody: $ => seq($._bodycontent, repeat(seq($.seperator, $._bodycontent)), $._line_break),
+	fieldbody: $ => seq($._bodycontent, repeat(seq($.seperator, $._bodycontent))),
 	seperator: $ => repeat1(choice(
 		$._lwsp,
 		seq($._line_break, $._lwsp)
@@ -90,7 +85,6 @@ module.exports = grammar({
 	addresslist: $ => seq(
 		$.ia,
 		repeat(seq(optional($.seperator), ",", $.ia)),
-		$._line_break,
 	),
 	ia: $ => choice(
 		$.mailbox,
@@ -125,39 +119,151 @@ module.exports = grammar({
 	emailbody: $ => repeat1(
 		choice(
 			$.line,
-			$.quoted1,
+			$._quoted,
 			$.git,
 		)
 	),
 	line: $ => token(prec(-2, /.+/)),
-	
-	// TODO do qoutes!
-	// mailQuoted, we need to do this is in scanner1 but it's fine for now
-	quoted1: $ => seq(
-		token(prec(-1, /([ \t]*>[ \t]*)/)),
+	// this should be in the scanner
+	_quote: $ => token(prec(-1, /[ \t]*>/)),
+	quote1: $ => seq(
+		$._quote,
 		$.line,
+	),
+	quote2: $ => seq(
+		$._quote,
+		$._quote,
+		$.line,
+	),
+	quote3: $ => seq(
+		$._quote,
+		$._quote,
+		$._quote,
+		$.line,
+	),
+	quote4: $ => seq(
+		$._quote,
+		$._quote,
+		$._quote,
+		$._quote,
+		$.line,
+	),
+	quote5: $ => seq(
+		$._quote,
+		$._quote,
+		$._quote,
+		$._quote,
+		$._quote,
+		$.line,
+	),
+	quote6: $ => seq(
+		$._quote,
+		$._quote,
+		$._quote,
+		$._quote,
+		$._quote,
+		$._quote,
+		$.line,
+	),
+	
+	// this is ugly but works for now
+	_quoted: $ => choice(
+		$.quote1, $.quote2, $.quote3,
+		$.quote4, $.quote5, $.quote6
+	),
+	footer: $ => seq(
 	),
 	footer: $ => seq(
 		'-- \n',
 		$.footertext,
 	),
 	footertext: $ => seq(/.+/),
+	
+	// move all of this to another module?
 	git: $ => seq(
 		'diff --',
 		choice('git', 'cc', 'combined'),
 		/.+/,
-		$.index,
+		repeat1($.actions),
 		$.patch,
 	),
-	actions: $ => /.+/,
+	actions: $ => choice(
+		$.old,
+		$.newmode,
+		$.deleted,
+		$.newfile,
+		$.copyfrom,
+		$.copyto,
+		$.renamefrom,
+		$.renameto,
+		$.similarity,
+	    $.dissimilarity,
+		$.index,
+	),
+	_hash: $ => /[\da-f]+/,
+	_mode: $ => /\d+/,
+	_path: $ => /\w/, // FIXME
+	old: $ => seq(
+		'old',
+		'mode',
+		$._mode,
+	),
+	newmode: $ => seq(
+		'new',
+		'mode',
+		$._mode,
+	),
+	deleted: $ => seq(
+		'deleted',
+		'file',
+		'mode',
+		$._mode,
+	),
+	newfile: $ => seq(
+		'new',
+		'file',
+		'mode',
+		$._mode,
+	),
+	copyfrom: $ => seq(
+		'copy',
+		'from',
+		$._path,
+	),
+	copyto: $ => seq(
+		'copy',
+		'to',
+		$._path,
+	),
+	renamefrom: $ => seq(
+		'rename',
+		'from',
+		$._path,
+	),
+	renameto: $ => seq(
+		'rename',
+		'to',
+		$._path,
+	),
+	similarity: $ => seq(
+		'similarity',
+		'index',
+		/\d+/,
+	),
+	dissimilarity: $ => seq(
+		'dissimilarity',
+		'index',
+		/\d+/,
+	),
 	index: $ => seq(
 		'index',
-		/[\da-f]+/,
-		optional(seq('..', /[\da-f]+/)),
-		optional(/\d+/),
+		$._hash,
+		'..', 
+		$._hash,
+		optional($._path),
 	),
 	dirname: $ =>
-		token(prec(-1, /([^\s\/]+\/)+/)),
+		token(prec(-1, /\/?([^\s\/]+\/)+/)),
 	file: $ =>
 		token(prec(-2, /[^\s\.\/]+/)),
 	filetype: $ => 
