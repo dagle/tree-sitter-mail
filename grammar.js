@@ -86,7 +86,7 @@ module.exports = grammar({
 		seq($._line_break, $._lwsp)
 	)),
 	lwspp: $ => /[ \t]/,
-	_bodycontent: $ => /[^:^\n]+/,
+	_bodycontent: $ => /[^\n]+/,
 	addresslist: $ => seq(
 		$.ia,
 		repeat(seq(optional($.seperator), ",", $.ia)),
@@ -122,36 +122,45 @@ module.exports = grammar({
 		"\""
 	),
 	
-	// TODO do qoutes!
 	emailbody: $ => repeat1(
-		seq($._mimeline, $._line_break)
+		choice(
+			$.line,
+			$.quoted1,
+			$.git,
+		)
 	),
-	_mimeline: $ => token(prec(-1, /.+/)),
+	line: $ => token(prec(-2, /.+/)),
+	
+	// TODO do qoutes!
+	// mailQuoted, we need to do this is in scanner1 but it's fine for now
+	quoted1: $ => seq(
+		token(prec(-1, /([ \t]*>[ \t]*)/)),
+		$.line,
+	),
 	footer: $ => seq(
 		'-- \n',
-		repeat(/.+/), 
+		$.footertext,
 	),
+	footertext: $ => seq(/.+/),
 	git: $ => seq(
 		'diff --',
 		choice('git', 'cc', 'combined'),
 		/.+/,
-		$._line_break,
-		$.actions,
 		$.index,
 		$.patch,
 	),
 	actions: $ => /.+/,
 	index: $ => seq(
 		'index',
-		/[\da-b]+/,
-		optional(seq('..', /[\da-b]+/)),
+		/[\da-f]+/,
+		optional(seq('..', /[\da-f]+/)),
+		optional(/\d+/),
 	),
 	dirname: $ =>
-		/([^\/\s]\/)*/,
+		token(prec(-1, /([^\s\/]+\/)+/)),
 	file: $ =>
-		/[^\s\.]+/,
+		token(prec(-2, /[^\s\.\/]+/)),
 	filetype: $ => 
-		// what can we have in a filetype?
 		/[^\s]+/,
 	patch: $ => seq(
 		$.oldfile,
@@ -162,19 +171,15 @@ module.exports = grammar({
 		$.dirname,
 		$.file,
 		optional(seq('.', $.filetype)),
-		$._line_break,
 	),
 	newfile: $ => seq(
 		'+++',
 		$.dirname,
 		$.file,
 		optional(seq('.', $.filetype)),
-		$._line_break,
-		$.source,
-		// $._line_break,
-		$.footer
+		$.diff,
 	),
-	source: $ => token(prec(-1, /.+/)),
+	diff: $ => repeat1(seq(token(prec(-1, /.+/)), $._line_break)),
   }
 })
 function reservedWord(word) {

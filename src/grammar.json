@@ -452,7 +452,7 @@
     },
     "_bodycontent": {
       "type": "PATTERN",
-      "value": "[^:^\\n]+"
+      "value": "[^\\n]+"
     },
     "addresslist": {
       "type": "SEQ",
@@ -658,29 +658,53 @@
     "emailbody": {
       "type": "REPEAT1",
       "content": {
-        "type": "SEQ",
+        "type": "CHOICE",
         "members": [
           {
             "type": "SYMBOL",
-            "name": "_mimeline"
+            "name": "line"
           },
           {
             "type": "SYMBOL",
-            "name": "_line_break"
+            "name": "quoted1"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "git"
           }
         ]
       }
     },
-    "_mimeline": {
+    "line": {
       "type": "TOKEN",
       "content": {
         "type": "PREC",
-        "value": -1,
+        "value": -2,
         "content": {
           "type": "PATTERN",
           "value": ".+"
         }
       }
+    },
+    "quoted1": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "PREC",
+            "value": -1,
+            "content": {
+              "type": "PATTERN",
+              "value": "([ \\t]*>[ \\t]*)"
+            }
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "line"
+        }
+      ]
     },
     "footer": {
       "type": "SEQ",
@@ -690,11 +714,17 @@
           "value": "-- \n"
         },
         {
-          "type": "REPEAT",
-          "content": {
-            "type": "PATTERN",
-            "value": ".+"
-          }
+          "type": "SYMBOL",
+          "name": "footertext"
+        }
+      ]
+    },
+    "footertext": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": ".+"
         }
       ]
     },
@@ -728,14 +758,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_line_break"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "actions"
-        },
-        {
-          "type": "SYMBOL",
           "name": "index"
         },
         {
@@ -757,7 +779,7 @@
         },
         {
           "type": "PATTERN",
-          "value": "[\\da-b]+"
+          "value": "[\\da-f]+"
         },
         {
           "type": "CHOICE",
@@ -771,9 +793,21 @@
                 },
                 {
                   "type": "PATTERN",
-                  "value": "[\\da-b]+"
+                  "value": "[\\da-f]+"
                 }
               ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "\\d+"
             },
             {
               "type": "BLANK"
@@ -783,12 +817,26 @@
       ]
     },
     "dirname": {
-      "type": "PATTERN",
-      "value": "([^\\/\\s]\\/)*"
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": -1,
+        "content": {
+          "type": "PATTERN",
+          "value": "([^\\s\\/]+\\/)+"
+        }
+      }
     },
     "file": {
-      "type": "PATTERN",
-      "value": "[^\\s\\.]+"
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": -2,
+        "content": {
+          "type": "PATTERN",
+          "value": "[^\\s\\.\\/]+"
+        }
+      }
     },
     "filetype": {
       "type": "PATTERN",
@@ -842,10 +890,6 @@
               "type": "BLANK"
             }
           ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_line_break"
         }
       ]
     },
@@ -887,27 +931,31 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_line_break"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "source"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "footer"
+          "name": "diff"
         }
       ]
     },
-    "source": {
-      "type": "TOKEN",
+    "diff": {
+      "type": "REPEAT1",
       "content": {
-        "type": "PREC",
-        "value": -1,
-        "content": {
-          "type": "PATTERN",
-          "value": ".+"
-        }
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": -1,
+              "content": {
+                "type": "PATTERN",
+                "value": ".+"
+              }
+            }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_line_break"
+          }
+        ]
       }
     }
   },
