@@ -49,27 +49,32 @@
     "headers": {
       "type": "REPEAT1",
       "content": {
-        "type": "CHOICE",
+        "type": "SEQ",
         "members": [
           {
-            "type": "SYMBOL",
-            "name": "addressheader"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "dateheader"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "subjectheader"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "midheader"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "headerextra"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "addressheader"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "dateheader"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "subjectheader"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "midheader"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "headerextra"
+              }
+            ]
           }
         ]
       }
@@ -1211,7 +1216,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "_path"
+              "name": "_mode"
             },
             {
               "type": "BLANK"

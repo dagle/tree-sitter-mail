@@ -12,6 +12,7 @@ module.exports = grammar({
     message: $ => seq(
 		// optional($.specialFrom)
 		$.headers,
+		optional($._line_break),
 		optional($.emailbody),
 		optional($.footer),
 	),
@@ -70,12 +71,12 @@ module.exports = grammar({
 	sender: $ => reservedWord("sender"),
 	replyto: $ => reservedWord("reply-to"),
 	
-	mid: $ => /.+/,
-	subject: $ => /.+/,
-	date: $ => /.+/,
+	mid: $ => seq(/.+/, $._line_break),
+	subject: $ => seq(/.+/, $._line_break),
+	date: $ => seq(/.+/, $._line_break),
 
 	fieldname: $ => /[^:\t\n]+/,
-	fieldbody: $ => seq($._bodycontent, repeat(seq($.seperator, $._bodycontent))),
+	fieldbody: $ => seq($._bodycontent, repeat(seq($.seperator, $._bodycontent)), $._line_break),
 	seperator: $ => repeat1(choice(
 		$._lwsp,
 		seq($._line_break, $._lwsp)
@@ -85,6 +86,7 @@ module.exports = grammar({
 	addresslist: $ => seq(
 		$.ia,
 		repeat(seq(optional($.seperator), ",", $.ia)),
+		$._line_break,
 	),
 	ia: $ => choice(
 		$.mailbox,
@@ -260,7 +262,7 @@ module.exports = grammar({
 		$._hash,
 		'..', 
 		$._hash,
-		optional($._path),
+		optional($._mode),
 	),
 	dirname: $ =>
 		token(prec(-1, /\/?([^\s\/]+\/)+/)),
