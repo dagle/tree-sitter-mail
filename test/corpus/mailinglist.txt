@@ -67,7 +67,8 @@ footer
               (local)
               (domain))))))
     (subjectheader
-      (subject))
+      (subject
+		  (subjectfield)))
     (addressheader
       (addrkind
         (replyto))
@@ -81,9 +82,11 @@ footer
       (fieldname)
       (fieldbody))
     (midheader
-      (mid))
+      (mid
+		  (midfield)))
     (dateheader
-      (date))
+      (date
+		  (datefield)))
     (headerextra
       (fieldname)
       (fieldbody))

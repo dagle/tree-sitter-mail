@@ -35,9 +35,11 @@ index 8b13789..0000000
                 (local)
                 (domain)))))))
     (dateheader
-      (date))
+      (date
+		  (datefield)))
     (subjectheader
-      (subject)))
+      (subject
+		  (subjectfield))))
   (emailbody
     (line)
     (line)

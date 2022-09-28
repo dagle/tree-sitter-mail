@@ -60,7 +60,8 @@ Sender: "mailinglist-dev-public" <mailinglist-dev-public-bounces@lists.devstuff.
 				(local)
 				(domain)))))))
 	(subjectheader
-	  (subject))
+	  (subject
+		  (subjectfield)))
 	(addressheader
 	  (addrkind
 		(replyto))
@@ -74,9 +75,11 @@ Sender: "mailinglist-dev-public" <mailinglist-dev-public-bounces@lists.devstuff.
 	  (fieldname)
 	  (fieldbody))
 	(midheader
-	  (mid))
+	  (mid
+		  (midfield)))
 	(dateheader
-	  (date))
+	  (date
+		  (datefield)))
 	(headerextra
 	  (fieldname)
 	  (fieldbody))

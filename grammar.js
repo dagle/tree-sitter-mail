@@ -106,8 +106,8 @@ module.exports = grammar({
 	addrspec: $ => seq($.local, "@", $.domain),
 	domain: $ => seq($._word, repeat(seq(".", $._word))),
 	// XXX shouldn't this be just $._word?
-	// local: $ => seq($._word, repeat(seq(".", $._word))),
-	local: $ => $._word,
+	// this is wrong imo
+	local: $ => seq($._word, repeat(seq(".", $._word))),
 	phrase: $ => repeat1($._word),
 	_word: $ => choice(
 		$._atom,
