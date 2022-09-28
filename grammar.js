@@ -71,12 +71,13 @@ module.exports = grammar({
 	sender: $ => reservedWord("sender"),
 	replyto: $ => reservedWord("reply-to"),
 	
-	mid: $ => seq(/.+/, $._line_break),
-	subject: $ => seq(/.+/, $._line_break),
-	date: $ => seq(/.+/, $._line_break),
+	mid: $ => alias($._fieldbody, $.midfield),
+	subject: $ => alias($._fieldbody, $.subjectfield),
+	date: $ => alias($._fieldbody, $.datefield),
 
 	fieldname: $ => /[^:\t\n]+/,
-	fieldbody: $ => seq($._bodycontent, repeat(seq($.seperator, $._bodycontent)), $._line_break),
+	fieldbody: $ => $._fieldbody,
+	_fieldbody: $ => seq($._bodycontent, repeat(seq($.seperator, $._bodycontent)), $._line_break),
 	seperator: $ => repeat1(choice(
 		$._lwsp,
 		seq($._line_break, $._lwsp)
@@ -104,7 +105,9 @@ module.exports = grammar({
 
 	addrspec: $ => seq($.local, "@", $.domain),
 	domain: $ => seq($._word, repeat(seq(".", $._word))),
-	local: $ => seq($._word, repeat(seq(".", $._word))),
+	// XXX shouldn't this be just $._word?
+	// local: $ => seq($._word, repeat(seq(".", $._word))),
+	local: $ => $._word,
 	phrase: $ => repeat1($._word),
 	_word: $ => choice(
 		$._atom,

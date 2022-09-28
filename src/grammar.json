@@ -355,49 +355,41 @@
       "value": "reply-to"
     },
     "mid": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "PATTERN",
-          "value": ".+"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_line_break"
-        }
-      ]
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_fieldbody"
+      },
+      "named": true,
+      "value": "midfield"
     },
     "subject": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "PATTERN",
-          "value": ".+"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_line_break"
-        }
-      ]
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_fieldbody"
+      },
+      "named": true,
+      "value": "subjectfield"
     },
     "date": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "PATTERN",
-          "value": ".+"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_line_break"
-        }
-      ]
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_fieldbody"
+      },
+      "named": true,
+      "value": "datefield"
     },
     "fieldname": {
       "type": "PATTERN",
       "value": "[^:\\t\\n]+"
     },
     "fieldbody": {
+      "type": "SYMBOL",
+      "name": "_fieldbody"
+    },
+    "_fieldbody": {
       "type": "SEQ",
       "members": [
         {
@@ -591,29 +583,8 @@
       ]
     },
     "local": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_word"
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "."
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_word"
-              }
-            ]
-          }
-        }
-      ]
+      "type": "SYMBOL",
+      "name": "_word"
     },
     "phrase": {
       "type": "REPEAT1",

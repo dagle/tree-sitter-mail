@@ -169,7 +169,32 @@
   {
     "type": "date",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "datefield",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "datefield",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "seperator",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "dateheader",
@@ -393,7 +418,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "types": [
         {
@@ -452,7 +477,32 @@
   {
     "type": "mid",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "midfield",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "midfield",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "seperator",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "midheader",
@@ -706,7 +756,32 @@
   {
     "type": "subject",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "subjectfield",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "subjectfield",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "seperator",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "subjectheader",
