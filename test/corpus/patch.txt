@@ -1,0 +1,61 @@
+==================
+Patch
+==================
+From: Per Odlund <per.odlund@gmail.com>
+Date: Mon, 26 Sep 2022 12:42:18 +0200
+Subject: [PATCH 1/2] bepa
+
+Signed-off-by: Per Odlund <per.odlund@gmail.com>
+---
+apa | 1 -
+1 file changed, 1 deletion(-)
+delete mode 100644 apa
+
+diff --git a/apa b/apa
+deleted file mode 100644
+index 8b13789..0000000
+--- a/apa
++++ /dev/null
+@@ -1 +0,0 @@
+-
+-- 
+2.37.3
+---
+(message
+  (headers
+    (addressheader
+      (addrkind
+        (from))
+      (addresslist
+        (ia
+          (mailbox
+            (phrase)
+            (routeaddr
+              (addrspec
+                (local)
+                (domain)))))))
+    (dateheader
+      (date))
+    (subjectheader
+      (subject)))
+  (emailbody
+    (line)
+    (line)
+    (line)
+    (line)
+    (line)
+    (git
+      (actions
+        (deleted))
+      (actions
+        (index))
+      (patch
+        (oldfile
+          (dirname)
+          (file))
+        (newfile
+          (dirname)
+          (file)
+          (diff)))))
+  (footer
+    (footertext)))

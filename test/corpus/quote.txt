@@ -1,0 +1,65 @@
+==================
+Qoute
+==================
+From: mailinglist-dev-public-request@lists.devstuff.org
+To: test@test.net
+
+> Mailing list subscription confirmation notice for mailing list
+malining-dev-public
+
+>    https://lists.devstuff.org/confirm/mailinglist-dev-public/aou1348313a-ouae83öa-123
+
+
+Or include the following line -- and only the following line -- in a
+message to mailinglist-dev-public-request@lists.devstuff.org:
+
+  >  confirm b07bec5da9a9c36cfe34e4984c6713261d1bf9c4
+
+>> Note that simply sending a `reply' to this message should work from
+most mail readers, since that usually leaves the Subject: line in the
+right form (additional "Re:" text in the Subject: is okay).
+
+If you do not wish to be subscribed to this list, please simply
+disregard this message.  If you think you are being maliciously
+subscribed to the list, or have any other questions, send them to
+mailinglist-dev-public-owner@lists.devstuff.org.
+
+---
+(message
+  (headers
+	(addressheader
+	  (addrkind
+		(from))
+	  (addresslist
+		(ia
+		  (mailbox
+			(addrspec
+			  (local)
+			  (domain))))))
+	(addressheader
+	  (addrkind
+		(to))
+	  (addresslist
+		(ia
+		  (mailbox
+			(addrspec
+			  (local)
+			  (domain)))))))
+  (emailbody
+	(quote1
+	  (line))
+	(line)
+	(quote1
+	  (line))
+	(line)
+	(line)
+	(quote1
+	  (line))
+	(quote2
+	  (line))
+	(line)
+	(line)
+	(line)
+	(line)
+	(line)
+	(line)))

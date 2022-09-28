@@ -1,0 +1,110 @@
+==================
+Headers
+==================
+From: "a
+ b
+ c
+ x" <mailinglist-dev-public-request@lists.devstuff.org>
+To: test@test.net,
+  bepa@nepa.com,
+  argo
+  <cargo@hhh.rri>
+Subject: confirm a07bec5da9a9c86cfe34e4984e6713267d1bf9c4
+Reply-To: mailinglist-dev-public-request@lists.devstuff.org
+Auto-Submitted: auto-generated
+Message-ID: <mailman.0.1638739154.32027.mailinglist-dev-public@lists.devstuff.org>
+Date: Sun, 05 Dec 2021 21:19:14 +0000
+Precedence: bulk
+X-BeenThere: mailinglist-dev-public@lists.devstuff.org
+X-Mailman-Version: 2.1.38
+List-Id: Public mailing list for devstuff development
+ <mailinglist-dev-public.lists.devstuff.org>
+X-List-Administrivia: yes
+Errors-To: mailinglist-dev-public-bounces@lists.devstuff.org
+Sender: "mailinglist-dev-public" <mailinglist-dev-public-bounces@lists.devstuff.org>
+
+---
+(message
+  (headers
+	(addressheader
+	  (addrkind
+		(from))
+	  (addresslist
+		(ia
+		  (mailbox
+			(phrase
+			  (quotedstring))
+			(routeaddr
+			  (addrspec
+				(local)
+				(domain)))))))
+	(addressheader
+	  (addrkind
+		(to))
+	  (addresslist
+		(ia
+		  (mailbox
+			(addrspec
+			  (local)
+			  (domain))))
+		(ia
+		  (mailbox
+			(addrspec
+			  (local)
+			  (domain))))
+		(ia
+		  (mailbox
+			(phrase)
+			(routeaddr
+			  (addrspec
+				(local)
+				(domain)))))))
+	(subjectheader
+	  (subject))
+	(addressheader
+	  (addrkind
+		(replyto))
+	  (addresslist
+		(ia
+		  (mailbox
+			(addrspec
+			  (local)
+			  (domain))))))
+	(headerextra
+	  (fieldname)
+	  (fieldbody))
+	(midheader
+	  (mid))
+	(dateheader
+	  (date))
+	(headerextra
+	  (fieldname)
+	  (fieldbody))
+	(headerextra
+	  (fieldname)
+	  (fieldbody))
+	(headerextra
+	  (fieldname)
+	  (fieldbody))
+	(headerextra
+	  (fieldname)
+	  (fieldbody
+		(seperator)))
+	(headerextra
+	  (fieldname)
+	  (fieldbody))
+	(headerextra
+	  (fieldname)
+	  (fieldbody))
+	(addressheader
+	  (addrkind
+		(sender))
+	  (addresslist
+		(ia
+		  (mailbox
+			(phrase
+			  (quotedstring))
+			(routeaddr
+			  (addrspec
+				(local)
+				(domain)))))))))

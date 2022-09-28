@@ -1,0 +1,138 @@
+==================
+Mailinglist
+==================
+From: mailinglist-dev-public-request@lists.devstuff.org
+To: test@test.net
+Subject: confirm a07bec5da9a9c86cfe34e4984e6713267d1bf9c4
+Reply-To: mailinglist-dev-public-request@lists.devstuff.org
+Auto-Submitted: auto-generated
+Message-ID: <mailman.0.1638739154.32027.mailinglist-dev-public@lists.devstuff.org>
+Date: Sun, 05 Dec 2021 21:19:14 +0000
+Precedence: bulk
+X-BeenThere: mailinglist-dev-public@lists.devstuff.org
+X-Mailman-Version: 2.1.38
+List-Id: Public mailing list for devstuff development
+ <mailinglist-dev-public.lists.devstuff.org>
+X-List-Administrivia: yes
+Errors-To: mailinglist-dev-public-bounces@lists.devstuff.org
+Sender: "mailinglist-dev-public" <mailinglist-dev-public-bounces@lists.devstuff.org>
+
+Mailing list subscription confirmation notice for mailing list
+malining-dev-public
+
+We have received a request from 37.123.157.45 for subscription of your
+email address, "test@test.net", to the
+mailinglist-dev-public@lists.devstuff.org mailing list.  To confirm that you
+want to be added to this mailing list, simply reply to this message,
+keeping the Subject: header intact.  Or visit this web page:
+
+    https://lists.devstuff.org/confirm/mailinglist-dev-public/aou1348313a-ouae83öa-123
+
+
+Or include the following line -- and only the following line -- in a
+message to mailinglist-dev-public-request@lists.devstuff.org:
+
+    confirm b07bec5da9a9c36cfe34e4984c6713261d1bf9c4
+
+Note that simply sending a `reply' to this message should work from
+most mail readers, since that usually leaves the Subject: line in the
+right form (additional "Re:" text in the Subject: is okay).
+
+If you do not wish to be subscribed to this list, please simply
+disregard this message.  If you think you are being maliciously
+subscribed to the list, or have any other questions, send them to
+mailinglist-dev-public-owner@lists.devstuff.org.
+
+-- 
+footer
+---
+(message
+  (headers
+    (addressheader
+      (addrkind
+        (from))
+      (addresslist
+        (ia
+          (mailbox
+            (addrspec
+              (local)
+              (domain))))))
+    (addressheader
+      (addrkind
+        (to))
+      (addresslist
+        (ia
+          (mailbox
+            (addrspec
+              (local)
+              (domain))))))
+    (subjectheader
+      (subject))
+    (addressheader
+      (addrkind
+        (replyto))
+      (addresslist
+        (ia
+          (mailbox
+            (addrspec
+              (local)
+              (domain))))))
+    (headerextra
+      (fieldname)
+      (fieldbody))
+    (midheader
+      (mid))
+    (dateheader
+      (date))
+    (headerextra
+      (fieldname)
+      (fieldbody))
+    (headerextra
+      (fieldname)
+      (fieldbody))
+    (headerextra
+      (fieldname)
+      (fieldbody))
+    (headerextra
+      (fieldname)
+      (fieldbody
+        (seperator)))
+    (headerextra
+      (fieldname)
+      (fieldbody))
+    (headerextra
+      (fieldname)
+      (fieldbody))
+    (addressheader
+      (addrkind
+        (sender))
+      (addresslist
+        (ia
+          (mailbox
+            (phrase
+              (quotedstring))
+            (routeaddr
+              (addrspec
+                (local)
+                (domain))))))))
+  (emailbody
+    (line)
+    (line)
+    (line)
+    (line)
+    (line)
+    (line)
+    (line)
+    (line)
+    (line)
+    (line)
+    (line)
+    (line)
+    (line)
+    (line)
+    (line)
+    (line)
+    (line)
+    (line))
+  (footer
+    (footertext)))
