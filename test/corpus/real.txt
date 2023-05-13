@@ -1,0 +1,61 @@
+================================================================================
+Real
+================================================================================
+From: Christian Hesse <list@eworm.de>
+To: Balló György <bgyorgy@archlinux.org>
+Cc: arch-dev-public@lists.archlinux.org
+Date: Fri 03 Mar 2023 12:29:39 PM CET
+Subject: Re: Dependencies from pkg-config files
+
+ouaeuaeou
+
+> - Some missing dependencies (gobject-introspection, systemd, util-
+> linux) are caused because the pkg-config files are packaged separately
+> from the libraries. This shouldn't happen in our distribution, because
+> we don't split development packages. pkg-config files and the related
+> header files should be in the same package where the library is found.
+-- 
+apa
+bepa
+cepa
+--------------------------------------------------------------------------------
+
+(message
+  (headers
+    (addressheader
+      (addrkind
+        (from))
+      (addresslist
+        (internetaddress
+          (mailbox
+            (name)
+            (local)
+            (domain)))))
+    (addressheader
+      (addrkind
+        (to))
+      (addresslist
+        (internetaddress
+          (mailbox
+            (name)
+            (local)
+            (domain)))))
+    (addressheader
+      (addrkind
+        (cc))
+      (addresslist
+        (internetaddress
+          (mailbox
+            (local)
+            (domain)))))
+    (dateheader
+      (date)
+      (datefield))
+    (subjectheader
+      (subject)
+      (subjectfield)))
+  (emailbody
+    (textblock))
+  (footer
+    (footersep)
+    (footertext)))
