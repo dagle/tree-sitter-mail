@@ -1,6 +1,6 @@
-==================
+================================================================================
 Qoute
-==================
+================================================================================
 From: mailinglist-dev-public-request@lists.devstuff.org
 To: test@test.net
 
@@ -24,42 +24,26 @@ disregard this message.  If you think you are being maliciously
 subscribed to the list, or have any other questions, send them to
 mailinglist-dev-public-owner@lists.devstuff.org.
 
----
+--------------------------------------------------------------------------------
+
 (message
   (headers
-	(addressheader
-	  (addrkind
-		(from))
-	  (addresslist
-		(ia
-		  (mailbox
-			(addrspec
-			  (local)
-			  (domain))))))
-	(addressheader
-	  (addrkind
-		(to))
-	  (addresslist
-		(ia
-		  (mailbox
-			(addrspec
-			  (local)
-			  (domain)))))))
+    (addressheader
+      (addrkind
+        (from))
+      (addresslist
+        (internetaddress
+          (mailbox
+            (local)
+            (domain)))))
+    (addressheader
+      (addrkind
+        (to))
+      (addresslist
+        (internetaddress
+          (mailbox
+            (local)
+            (domain))))))
+  (ERROR)
   (emailbody
-	(quote1
-	  (line))
-	(line)
-	(quote1
-	  (line))
-	(line)
-	(line)
-	(quote1
-	  (line))
-	(quote2
-	  (line))
-	(line)
-	(line)
-	(line)
-	(line)
-	(line)
-	(line)))
+    (textblock)))

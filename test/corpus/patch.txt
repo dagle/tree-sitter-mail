@@ -1,6 +1,6 @@
-==================
+================================================================================
 Patch
-==================
+================================================================================
 From: Per Odlund <per.odlund@gmail.com>
 Date: Mon, 26 Sep 2022 12:42:18 +0200
 Subject: [PATCH 1/2] bepa
@@ -20,44 +20,27 @@ index 8b13789..0000000
 -
 -- 
 2.37.3
----
+--------------------------------------------------------------------------------
+
 (message
   (headers
     (addressheader
       (addrkind
         (from))
       (addresslist
-        (ia
+        (internetaddress
           (mailbox
-            (phrase)
-            (routeaddr
-              (addrspec
-                (local)
-                (domain)))))))
+            (name)
+            (local)
+            (domain)))))
     (dateheader
-      (date
-		  (datefield)))
+      (date)
+      (datefield))
     (subjectheader
-      (subject
-		  (subjectfield))))
+      (subject)
+      (subjectfield)))
   (emailbody
-    (line)
-    (line)
-    (line)
-    (line)
-    (line)
-    (git
-      (actions
-        (deleted))
-      (actions
-        (index))
-      (patch
-        (oldfile
-          (dirname)
-          (file))
-        (newfile
-          (dirname)
-          (file)
-          (diff)))))
+    (textblock))
   (footer
+    (footersep)
     (footertext)))

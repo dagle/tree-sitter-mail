@@ -1,6 +1,6 @@
-==================
+================================================================================
 Headers
-==================
+================================================================================
 From: "a
  b
  c
@@ -23,91 +23,47 @@ X-List-Administrivia: yes
 Errors-To: mailinglist-dev-public-bounces@lists.devstuff.org
 Sender: "mailinglist-dev-public" <mailinglist-dev-public-bounces@lists.devstuff.org>
 
----
+--------------------------------------------------------------------------------
+
 (message
   (headers
-	(addressheader
-	  (addrkind
-		(from))
-	  (addresslist
-		(ia
-		  (mailbox
-			(phrase
-			  (quotedstring))
-			(routeaddr
-			  (addrspec
-				(local)
-				(domain)))))))
-	(addressheader
-	  (addrkind
-		(to))
-	  (addresslist
-		(ia
-		  (mailbox
-			(addrspec
-			  (local)
-			  (domain))))
-		(ia
-		  (mailbox
-			(addrspec
-			  (local)
-			  (domain))))
-		(ia
-		  (mailbox
-			(phrase)
-			(routeaddr
-			  (addrspec
-				(local)
-				(domain)))))))
-	(subjectheader
-	  (subject
-		  (subjectfield)))
-	(addressheader
-	  (addrkind
-		(replyto))
-	  (addresslist
-		(ia
-		  (mailbox
-			(addrspec
-			  (local)
-			  (domain))))))
-	(headerextra
-	  (fieldname)
-	  (fieldbody))
-	(midheader
-	  (mid
-		  (midfield)))
-	(dateheader
-	  (date
-		  (datefield)))
-	(headerextra
-	  (fieldname)
-	  (fieldbody))
-	(headerextra
-	  (fieldname)
-	  (fieldbody))
-	(headerextra
-	  (fieldname)
-	  (fieldbody))
-	(headerextra
-	  (fieldname)
-	  (fieldbody
-		(seperator)))
-	(headerextra
-	  (fieldname)
-	  (fieldbody))
-	(headerextra
-	  (fieldname)
-	  (fieldbody))
-	(addressheader
-	  (addrkind
-		(sender))
-	  (addresslist
-		(ia
-		  (mailbox
-			(phrase
-			  (quotedstring))
-			(routeaddr
-			  (addrspec
-				(local)
-				(domain)))))))))
+    (addressheader
+      (addrkind
+        (from))
+      (addresslist
+        (internetaddress
+          (mailbox
+            (name
+              (quotedstring))
+            (local)
+            (domain)))))
+    (addressheader
+      (addrkind
+        (to))
+      (addresslist
+        (internetaddress
+          (mailbox
+            (local)
+            (domain)))
+        (internetaddress
+          (mailbox
+            (local)
+            (domain)))
+        (internetaddress
+          (mailbox
+            (name)
+            (local)
+            (domain)))))
+    (subjectheader
+      (subject)
+      (subjectfield))
+    (addressheader
+      (addrkind
+        (replyto))
+      (addresslist
+        (internetaddress
+          (mailbox
+            (local)
+            (domain))))))
+  (emailbody
+    (textblock)))

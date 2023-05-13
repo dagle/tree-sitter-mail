@@ -22,18 +22,18 @@ module.exports = grammar({
 			$.dateheader,
 			$.subjectheader,
 			$.midheader,
-			$.headerextra),
+			$.header),
 	)),
-	specialFrom: $ => seq(
-		reservedWord("from"),
-		':',
-		$.fieldbody,
-	),
-	headerextra: $ =>
+	// specialFrom: $ => seq(
+	// 	reservedWord("from"),
+	// 	':',
+	// 	$.fieldbody,
+	// ),
+	header: $ =>
 		seq(
-		    $.fieldname,
+		    $.headertype,
 			':',
-			$.fieldbody,
+			$.headerentry,
 		),
 	addressheader: $ => seq(
 		$.addrkind,
@@ -41,17 +41,17 @@ module.exports = grammar({
 		$.addresslist,
 	),
 	dateheader: $ => seq(
-		reservedWord("date"),
+		$.date,
 		':',
-		$.date
+		$._datefield
 	),
 	subjectheader: $ => seq(
-		reservedWord("subject"),
+		$.subject,
 		':',
-		$.subject
+		$._subjectfield
 	),
 	midheader: $ => seq(
-		reservedWord("message-id"),
+		$.message_id,
 		':',
 		$.mid
 	),
@@ -70,13 +70,17 @@ module.exports = grammar({
 	bcc: $ => reservedWord("bcc"),
 	sender: $ => reservedWord("sender"),
 	replyto: $ => reservedWord("reply-to"),
+
+	date: $ => reservedWord("date"),
+	subject: $ => reservedWord("subject"),
+	message_id: $ => reservedWord("message-id"),
 	
 	mid: $ => alias($._fieldbody, $.midfield),
-	subject: $ => alias($._fieldbody, $.subjectfield),
-	date: $ => alias($._fieldbody, $.datefield),
+	_subjectfield: $ => alias($._fieldbody, $.subjectfield),
+	_datefield: $ => alias($._fieldbody, $.datefield),
 
-	fieldname: $ => /[^:\t\n]+/,
-	fieldbody: $ => $._fieldbody,
+	headertype: $ => /[^:\t\n]+/,
+	headerentry: $ => $._fieldbody,
 	_fieldbody: $ => seq($._bodycontent, repeat(seq($.seperator, $._bodycontent)), $._line_break),
 	seperator: $ => repeat1(choice(
 		$._lwsp,
@@ -85,30 +89,30 @@ module.exports = grammar({
 	lwspp: $ => /[ \t]/,
 	_bodycontent: $ => /[^\n]+/,
 	addresslist: $ => seq(
-		$.ia,
-		repeat(seq(optional($.seperator), ",", $.ia)),
+		$.internetaddress,
+		repeat(seq(optional($.seperator), ",", $.internetaddress)),
 		$._line_break,
 	),
-	ia: $ => choice(
+	internetaddress: $ => choice(
 		$.mailbox,
 		// $.mailgroup,
 	),
 	mailbox: $ => choice(
-		$.addrspec,
-		seq($.phrase, $.routeaddr)
+		$._addrspec,
+		seq($.name, $._routeaddr)
 	),
-	routeaddr: $ => seq(
+	_routeaddr: $ => seq(
 		"<",
-		$.addrspec,
+		$._addrspec,
 		">",
 	),
 
-	addrspec: $ => seq($.local, "@", $.domain),
+	_addrspec: $ => seq($.local, "@", $.domain),
 	domain: $ => seq($._word, repeat(seq(".", $._word))),
 	// XXX shouldn't this be just $._word?
 	// this is wrong imo
 	local: $ => seq($._word, repeat(seq(".", $._word))),
-	phrase: $ => repeat1($._word),
+	name: $ => repeat1($._word),
 	_word: $ => choice(
 		$._atom,
 		$.quotedstring,
@@ -121,176 +125,192 @@ module.exports = grammar({
 		"\""
 	),
 	
-	emailbody: $ => repeat1(
-		choice(
-			$.line,
-			$._quoted,
-			$.git,
-		)
-	),
-	line: $ => token(prec(-2, /.+/)),
+	// emailbody: $ => repeat1(
+	// 	choice(
+	// 		$.textblock,
+	// 		// $._quoted,
+	// 		// $.git,
+	// 	)
+	// ),
+	emailbody: $ => seq(choice(
+		$.quote,
+		$.textblock,
+	)),
+	textblock: $ => repeat1(/[ \t]*[^>].*/),
+	// textblock: $ => prec(-2, $._textblock),
+	_textblock: $ => seq($._textline, $._textblock),
+	_textline: $ => /.+/,
 	// this should be in the scanner
-	_quote: $ => token(prec(-1, /[ \t]*>/)),
-	quote1: $ => seq(
-		$._quote,
-		$.line,
+	// _quote: $ => prec(-1, repeat1(/[ \t]*>/)),
+	quote: $ => repeat1($._qoute1),
+	_qtext: $ => /.+/,
+	_qoute: $ => /[ \t]*>/,
+
+	_qoute1: $ => seq(
+		$._qoute,
+		$._qtext,
 	),
-	quote2: $ => seq(
-		$._quote,
-		$._quote,
-		$.line,
-	),
-	quote3: $ => seq(
-		$._quote,
-		$._quote,
-		$._quote,
-		$.line,
-	),
-	quote4: $ => seq(
-		$._quote,
-		$._quote,
-		$._quote,
-		$._quote,
-		$.line,
-	),
-	quote5: $ => seq(
-		$._quote,
-		$._quote,
-		$._quote,
-		$._quote,
-		$._quote,
-		$.line,
-	),
-	quote6: $ => seq(
-		$._quote,
-		$._quote,
-		$._quote,
-		$._quote,
-		$._quote,
-		$._quote,
-		$.line,
-	),
+	// text: $ => /.*/,
+	// quote: $ => seq(
+	// 	$._quote,
+	// 	$.text,
+	// ),
+	// quote2: $ => seq(
+	// 	$._quote,
+	// 	$._quote,
+	// 	$.text,
+	// ),
+	// quote3: $ => seq(
+	// 	$._quote,
+	// 	$._quote,
+	// 	$._quote,
+	// 	$.text,
+	// ),
+	// quote4: $ => seq(
+	// 	$._quote,
+	// 	$._quote,
+	// 	$._quote,
+	// 	$._quote,
+	// 	$.text,
+	// ),
+	// quote5: $ => seq(
+	// 	$._quote,
+	// 	$._quote,
+	// 	$._quote,
+	// 	$._quote,
+	// 	$._quote,
+	// 	$.text,
+	// ),
+	// quote6: $ => seq(
+	// 	$._quote,
+	// 	$._quote,
+	// 	$._quote,
+	// 	$._quote,
+	// 	$._quote,
+	// 	$._quote,
+	// 	$.text,
+	// ),
 	
 	// this is ugly but works for now
-	_quoted: $ => choice(
-		$.quote1, $.quote2, $.quote3,
-		$.quote4, $.quote5, $.quote6
-	),
+	// _quoted: $ => choice(
+	// 	$.quote1,
+	// 	// $.quote1, $.quote2, $.quote3,
+	// 	// $.quote4, $.quote5, $.quote6
+	// ),
 	footer: $ => seq(
+		$.footersep,
+		optional($.footertext),
 	),
-	footer: $ => seq(
-		'-- \n',
-		$.footertext,
-	),
-	footertext: $ => seq(/.+/),
-	
-	// move all of this to another module?
-	git: $ => seq(
-		'diff --',
-		choice('git', 'cc', 'combined'),
-		/.+/,
-		repeat1($.actions),
-		$.patch,
-	),
-	actions: $ => choice(
-		$.old,
-		$.newmode,
-		$.deleted,
-		$.newfile,
-		$.copyfrom,
-		$.copyto,
-		$.renamefrom,
-		$.renameto,
-		$.similarity,
-	    $.dissimilarity,
-		$.index,
-	),
-	_hash: $ => /[\da-f]+/,
-	_mode: $ => /\d+/,
-	_path: $ => /\w/, // FIXME
-	old: $ => seq(
-		'old',
-		'mode',
-		$._mode,
-	),
-	newmode: $ => seq(
-		'new',
-		'mode',
-		$._mode,
-	),
-	deleted: $ => seq(
-		'deleted',
-		'file',
-		'mode',
-		$._mode,
-	),
-	newfile: $ => seq(
-		'new',
-		'file',
-		'mode',
-		$._mode,
-	),
-	copyfrom: $ => seq(
-		'copy',
-		'from',
-		$._path,
-	),
-	copyto: $ => seq(
-		'copy',
-		'to',
-		$._path,
-	),
-	renamefrom: $ => seq(
-		'rename',
-		'from',
-		$._path,
-	),
-	renameto: $ => seq(
-		'rename',
-		'to',
-		$._path,
-	),
-	similarity: $ => seq(
-		'similarity',
-		'index',
-		/\d+/,
-	),
-	dissimilarity: $ => seq(
-		'dissimilarity',
-		'index',
-		/\d+/,
-	),
-	index: $ => seq(
-		'index',
-		$._hash,
-		'..', 
-		$._hash,
-		optional($._mode),
-	),
-	dirname: $ =>
-		token(prec(-1, /\/?([^\s\/]+\/)+/)),
-	file: $ =>
-		token(prec(-2, /[^\s\.\/]+/)),
-	filetype: $ => 
-		/[^\s]+/,
-	patch: $ => seq(
-		$.oldfile,
-		$.newfile,
-	),
-	oldfile: $ => seq(
-		'---',
-		$.dirname,
-		$.file,
-		optional(seq('.', $.filetype)),
-	),
-	newfile: $ => seq(
-		'+++',
-		$.dirname,
-		$.file,
-		optional(seq('.', $.filetype)),
-		$.diff,
-	),
-	diff: $ => repeat1(seq(token(prec(-1, /.+/)), $._line_break)),
+	footersep: $ => '-- \n',
+	footertext: $ => repeat1(/.+/),
+
+	// // move all of this to another module?
+	// git: $ => seq(
+	// 	'diff --',
+	// 	choice('git', 'cc', 'combined'),
+	// 	/.+/,
+	// 	repeat1($.actions),
+	// 	$.patch,
+	// ),
+	// actions: $ => choice(
+	// 	$.old,
+	// 	$.newmode,
+	// 	$.deleted,
+	// 	$.newfile,
+	// 	$.copyfrom,
+	// 	$.copyto,
+	// 	$.renamefrom,
+	// 	$.renameto,
+	// 	$.similarity,
+	//     $.dissimilarity,
+	// 	$.index,
+	// ),
+	// _hash: $ => /[\da-f]+/,
+	// _mode: $ => /\d+/,
+	// _path: $ => /\w/, // FIXME
+	// old: $ => seq(
+	// 	'old',
+	// 	'mode',
+	// 	$._mode,
+	// ),
+	// newmode: $ => seq(
+	// 	'new',
+	// 	'mode',
+	// 	$._mode,
+	// ),
+	// deleted: $ => seq(
+	// 	'deleted',
+	// 	'file',
+	// 	'mode',
+	// 	$._mode,
+	// ),
+	// newfile: $ => seq(
+	// 	'new',
+	// 	'file',
+	// 	'mode',
+	// 	$._mode,
+	// ),
+	// copyfrom: $ => seq(
+	// 	'copy',
+	// 	'from',
+	// 	$._path,
+	// ),
+	// copyto: $ => seq(
+	// 	'copy',
+	// 	'to',
+	// 	$._path,
+	// ),
+	// renamefrom: $ => seq(
+	// 	'rename',
+	// 	'from',
+	// 	$._path,
+	// ),
+	// renameto: $ => seq(
+	// 	'rename',
+	// 	'to',
+	// 	$._path,
+	// ),
+	// similarity: $ => seq(
+	// 	'similarity',
+	// 	'index',
+	// 	/\d+/,
+	// ),
+	// dissimilarity: $ => seq(
+	// 	'dissimilarity',
+	// 	'index',
+	// 	/\d+/,
+	// ),
+	// index: $ => seq(
+	// 	'index',
+	// 	$._hash,
+	// 	'..', 
+	// 	$._hash,
+	// 	optional($._mode),
+	// ),
+	// dirname: $ =>
+	// 	token(prec(-1, /\/?([^\s\/]+\/)+/)),
+	// file: $ =>
+	// 	token(prec(-2, /[^\s\.\/]+/)),
+	// filetype: $ => 
+	// 	/[^\s]+/,
+	// patch: $ => seq(
+	// 	$.oldfile,
+	// 	$.newfile,
+	// ),
+	// oldfile: $ => seq(
+	// 	'---',
+	// 	$.dirname,
+	// 	$.file,
+	// 	optional(seq('.', $.filetype)),
+	// ),
+	// newfile: $ => seq(
+	// 	'+++',
+	// 	$.dirname,
+	// 	$.file,
+	// 	optional(seq('.', $.filetype)),
+	// 	$.diff,
+	// ),
+	// diff: $ => repeat1(seq(token(prec(-1, /.+/)), $._line_break)),
   }
 })
 function reservedWord(word) {
