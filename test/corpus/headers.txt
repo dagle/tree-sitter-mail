@@ -64,6 +64,43 @@ Sender: "mailinglist-dev-public" <mailinglist-dev-public-bounces@lists.devstuff.
         (internetaddress
           (mailbox
             (local)
-            (domain))))))
-  (emailbody
-    (textblock)))
+            (domain)))))
+    (header
+      (headertype)
+      (headerentry))
+    (midheader
+      (message_id)
+      (mid
+        (midfield)))
+    (dateheader
+      (date)
+      (datefield))
+    (header
+      (headertype)
+      (headerentry))
+    (header
+      (headertype)
+      (headerentry))
+    (header
+      (headertype)
+      (headerentry))
+    (header
+      (headertype)
+      (headerentry
+        (seperator)))
+    (header
+      (headertype)
+      (headerentry))
+    (header
+      (headertype)
+      (headerentry))
+    (addressheader
+      (addrkind
+        (sender))
+      (addresslist
+        (internetaddress
+          (mailbox
+            (name
+              (quotedstring))
+            (local)
+            (domain)))))))

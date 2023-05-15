@@ -40,7 +40,19 @@ index 8b13789..0000000
       (subject)
       (subjectfield)))
   (emailbody
-    (textblock))
+    (textline)
+    (textline)
+    (textline)
+    (textline)
+    (textline)
+    (textline)
+    (textline)
+    (textline)
+    (textline)
+    (textline)
+    (textline)
+    (textline))
   (footer
     (footersep)
-    (footertext)))
+    (footertext
+      (footerline))))

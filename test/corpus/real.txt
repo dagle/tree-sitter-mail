@@ -55,7 +55,15 @@ cepa
       (subject)
       (subjectfield)))
   (emailbody
-    (textblock))
+    (textline)
+    (quote1)
+    (quote1)
+    (quote1)
+    (quote1)
+    (quote1))
   (footer
     (footersep)
-    (footertext)))
+    (footertext
+      (footerline)
+      (footerline)
+      (footerline))))

@@ -132,77 +132,82 @@ module.exports = grammar({
 	// 		// $.git,
 	// 	)
 	// ),
-	emailbody: $ => seq(choice(
-		$.quote,
-		$.textblock,
+	emailbody: $ => repeat1(choice(
+		$._quoted,
+		$.textline,
 	)),
-	textblock: $ => repeat1(/[ \t]*[^>].*/),
+	textblock: $ => /[ \t]*[^>].*/,
+	textline: $ => token(prec(-2, /.*/)),
+	// quoteline: $ => prec(2, seq(
+	// 	/[ \t]*>/,
+	// 	$.textline,
+	// )),
 	// textblock: $ => prec(-2, $._textblock),
 	_textblock: $ => seq($._textline, $._textblock),
 	_textline: $ => /.+/,
 	// this should be in the scanner
 	// _quote: $ => prec(-1, repeat1(/[ \t]*>/)),
-	quote: $ => repeat1($._qoute1),
-	_qtext: $ => /.+/,
-	_qoute: $ => /[ \t]*>/,
+	// quote: $ => repeat1($._qoute1),
+	_text: $ => /.+/,
+	_quote: $ => token(prec(2, /[ \t]*>/)),
 
-	_qoute1: $ => seq(
-		$._qoute,
-		$._qtext,
+	text: $ => /.*/,
+	quote1: $ => seq(
+		$._quote,
+		$._text,
 	),
-	// text: $ => /.*/,
 	// quote: $ => seq(
 	// 	$._quote,
 	// 	$.text,
 	// ),
-	// quote2: $ => seq(
-	// 	$._quote,
-	// 	$._quote,
-	// 	$.text,
-	// ),
-	// quote3: $ => seq(
-	// 	$._quote,
-	// 	$._quote,
-	// 	$._quote,
-	// 	$.text,
-	// ),
-	// quote4: $ => seq(
-	// 	$._quote,
-	// 	$._quote,
-	// 	$._quote,
-	// 	$._quote,
-	// 	$.text,
-	// ),
-	// quote5: $ => seq(
-	// 	$._quote,
-	// 	$._quote,
-	// 	$._quote,
-	// 	$._quote,
-	// 	$._quote,
-	// 	$.text,
-	// ),
-	// quote6: $ => seq(
-	// 	$._quote,
-	// 	$._quote,
-	// 	$._quote,
-	// 	$._quote,
-	// 	$._quote,
-	// 	$._quote,
-	// 	$.text,
-	// ),
+	quote2: $ => seq(
+		$._quote,
+		$._quote,
+		$._text,
+	),
+	quote3: $ => seq(
+		$._quote,
+		$._quote,
+		$._quote,
+		$._text,
+	),
+	quote4: $ => seq(
+		$._quote,
+		$._quote,
+		$._quote,
+		$._quote,
+		$._text,
+	),
+	quote5: $ => seq(
+		$._quote,
+		$._quote,
+		$._quote,
+		$._quote,
+		$._quote,
+		$._text,
+	),
+	quote6: $ => seq(
+		$._quote,
+		$._quote,
+		$._quote,
+		$._quote,
+		$._quote,
+		$._quote,
+		$._text,
+	),
 	
 	// this is ugly but works for now
-	// _quoted: $ => choice(
-	// 	$.quote1,
-	// 	// $.quote1, $.quote2, $.quote3,
-	// 	// $.quote4, $.quote5, $.quote6
-	// ),
+	_quoted: $ => choice(
+		$.quote1, $.quote2, $.quote3,
+		$.quote4, $.quote5, $.quote6
+	),
 	footer: $ => seq(
 		$.footersep,
 		optional($.footertext),
 	),
 	footersep: $ => '-- \n',
-	footertext: $ => repeat1(/.+/),
+	footertext: $ => repeat1($.footerline),
+	footerline: $ => /.+/,
 
 	// // move all of this to another module?
 	// git: $ => seq(
