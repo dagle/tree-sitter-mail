@@ -55,16 +55,23 @@ footer
       (addresslist
         (internetaddress
           (mailbox
-            (local)
-            (domain)))))
+            (local
+              (word))
+            (domain
+              (word)
+              (word)
+              (word))))))
     (addressheader
       (addrkind
         (to))
       (addresslist
         (internetaddress
           (mailbox
-            (local)
-            (domain)))))
+            (local
+              (word))
+            (domain
+              (word)
+              (word))))))
     (subjectheader
       (subject)
       (subjectfield))
@@ -74,8 +81,12 @@ footer
       (addresslist
         (internetaddress
           (mailbox
-            (local)
-            (domain)))))
+            (local
+              (word))
+            (domain
+              (word)
+              (word)
+              (word))))))
     (header
       (headertype)
       (headerentry))
@@ -98,7 +109,7 @@ footer
     (header
       (headertype)
       (headerentry
-        (seperator)))
+        (lspw)))
     (header
       (headertype)
       (headerentry))
@@ -112,29 +123,36 @@ footer
         (internetaddress
           (mailbox
             (name
-              (quotedstring))
-            (local)
-            (domain))))))
+              (word
+                (quoted_string)))
+            (angle_addr
+              (local
+                (word))
+              (domain
+                (word)
+                (word)
+                (word))))))))
   (emailbody
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline))
-  (footer
-    (footersep)
-    (footertext
-      (footerline))))
+    (block
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line))
+    (footer
+      (footersep)
+      (footertext
+        (footerline)))))

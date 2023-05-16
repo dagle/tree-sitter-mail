@@ -3,12 +3,9 @@ Headers
 ================================================================================
 From: "a
  b
- c
- x" <mailinglist-dev-public-request@lists.devstuff.org>
-To: test@test.net,
-  bepa@nepa.com,
-  argo
-  <cargo@hhh.rri>
+ c x" 
+ <mailinglist-dev-public-request@lists.devstuff.org>
+To: test@test.net, bepa@nepa.com, argo <cargo@hhh.rri>, dagle: ;, bepa: apa@bepa.com ;
 Subject: confirm a07bec5da9a9c86cfe34e4984e6713267d1bf9c4
 Reply-To: mailinglist-dev-public-request@lists.devstuff.org
 Auto-Submitted: auto-generated
@@ -17,8 +14,7 @@ Date: Sun, 05 Dec 2021 21:19:14 +0000
 Precedence: bulk
 X-BeenThere: mailinglist-dev-public@lists.devstuff.org
 X-Mailman-Version: 2.1.38
-List-Id: Public mailing list for devstuff development
- <mailinglist-dev-public.lists.devstuff.org>
+List-Id: Public mailing list for devstuff development <mailinglist-dev-public.lists.devstuff.org>
 X-List-Administrivia: yes
 Errors-To: mailinglist-dev-public-bounces@lists.devstuff.org
 Sender: "mailinglist-dev-public" <mailinglist-dev-public-bounces@lists.devstuff.org>
@@ -34,26 +30,61 @@ Sender: "mailinglist-dev-public" <mailinglist-dev-public-bounces@lists.devstuff.
         (internetaddress
           (mailbox
             (name
-              (quotedstring))
-            (local)
-            (domain)))))
+              (word
+                (quoted_string
+                  (fws)
+                  (fws))))
+            (angle_addr
+              (local
+                (word))
+              (domain
+                (word)
+                (word)
+                (word)))))))
     (addressheader
       (addrkind
         (to))
       (addresslist
         (internetaddress
           (mailbox
-            (local)
-            (domain)))
+            (local
+              (word))
+            (domain
+              (word)
+              (word))))
         (internetaddress
           (mailbox
-            (local)
-            (domain)))
+            (local
+              (word))
+            (domain
+              (word)
+              (word))))
         (internetaddress
           (mailbox
-            (name)
-            (local)
-            (domain)))))
+            (name
+              (word))
+            (angle_addr
+              (local
+                (word))
+              (domain
+                (word)
+                (word)))))
+        (internetaddress
+          (mailgroup
+            (name
+              (word))))
+        (internetaddress
+          (mailgroup
+            (name
+              (word))
+            (group_list
+              (mailbox_list
+                (mailbox
+                  (local
+                    (word))
+                  (domain
+                    (word)
+                    (word)))))))))
     (subjectheader
       (subject)
       (subjectfield))
@@ -63,8 +94,12 @@ Sender: "mailinglist-dev-public" <mailinglist-dev-public-bounces@lists.devstuff.
       (addresslist
         (internetaddress
           (mailbox
-            (local)
-            (domain)))))
+            (local
+              (word))
+            (domain
+              (word)
+              (word)
+              (word))))))
     (header
       (headertype)
       (headerentry))
@@ -86,8 +121,7 @@ Sender: "mailinglist-dev-public" <mailinglist-dev-public-bounces@lists.devstuff.
       (headerentry))
     (header
       (headertype)
-      (headerentry
-        (seperator)))
+      (headerentry))
     (header
       (headertype)
       (headerentry))
@@ -101,6 +135,187 @@ Sender: "mailinglist-dev-public" <mailinglist-dev-public-bounces@lists.devstuff.
         (internetaddress
           (mailbox
             (name
-              (quotedstring))
-            (local)
-            (domain)))))))
+              (word
+                (quoted_string)))
+            (angle_addr
+              (local
+                (word))
+              (domain
+                (word)
+                (word)
+                (word)))))))))
+
+================================================================================
+Lots of comments
+================================================================================
+From: Pete(A nice \) chap) <pete(his account)@silly.test(his host)>
+To:A Group(Some people)
+	:Chris Jones <c@(Chris's host.)public.example>,
+		joe@example.org,
+ John <jdoe@one.test> (my dear friend); (the end of the group)
+Cc:(Empty list)(start)Hidden recipients  :(nobody(that I know))  ;
+Date: Thu,
+	 13
+	   Feb
+		 1969
+	 23:32
+			  -0330 (Newfoundland Time)
+Message-ID:              <testabcd.1234@silly.test>
+
+Testing.
+--------------------------------------------------------------------------------
+
+(message
+  (headers
+    (addressheader
+      (addrkind
+        (from))
+      (addresslist
+        (internetaddress
+          (mailgroup
+            (name
+              (word))
+            (ERROR
+              (UNEXPECTED 'A')
+              (UNEXPECTED 'n')
+              (UNEXPECTED '\')
+              (UNEXPECTED 'h')
+              (local
+                (word))
+              (ERROR
+                (UNEXPECTED 'h')
+                (UNEXPECTED 'a')
+                (UNEXPECTED 'o'))
+              (domain
+                (word)
+                (word))
+              (UNEXPECTED 'h')
+              (UNEXPECTED 'h')
+              (name
+                (word)
+                (word)))
+            (ERROR
+              (UNEXPECTED 'o')
+              (UNEXPECTED 'p'))
+            (group_list
+              (mailbox_list
+                (mailbox
+                  (name
+                    (word)
+                    (word))
+                  (angle_addr
+                    (local
+                      (word))
+                    (ERROR
+                      (UNEXPECTED 'h')
+                      (UNEXPECTED 'h')
+                      (UNEXPECTED 'p')
+                      (UNEXPECTED 'e')
+                      (UNEXPECTED 'j'))
+                    (domain
+                      (word)
+                      (word))
+                    (MISSING ">")))
+                (mailbox
+                  (name
+                    (word))
+                  (angle_addr
+                    (local
+                      (word))
+                    (domain
+                      (word)
+                      (word))))))
+            (ERROR
+              (UNEXPECTED 'y')
+              (UNEXPECTED 'e')
+              (UNEXPECTED 'i'))))
+        (ERROR
+          (lspw
+            (ERROR
+              (UNEXPECTED 'h'))
+            (ERROR
+              (UNEXPECTED 'e'))
+            (ERROR
+              (UNEXPECTED 'o'))
+            (ERROR
+              (UNEXPECTED 'h'))
+            (ERROR
+              (UNEXPECTED 'g'))
+            (ERROR
+              (UNEXPECTED 'E'))
+            (ERROR
+              (UNEXPECTED 'l')
+              (UNEXPECTED 't')
+              (UNEXPECTED 'H'))
+            (ERROR
+              (UNEXPECTED 'c'))
+            (ERROR
+              (UNEXPECTED 'n')
+              (UNEXPECTED 'h'))
+            (ERROR
+              (UNEXPECTED 'I'))
+            (ERROR
+              (UNEXPECTED 'k')))
+          (ERROR
+            (UNEXPECTED 'h'))
+          (name
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word)
+            (word))
+          (word)
+          (word)
+          (word)
+          (UNEXPECTED 'N')
+          (UNEXPECTED 'i'))))
+    (midheader
+      (message_id)
+      (mid
+        (midfield))))
+  (emailbody
+    (block
+      (line))))
+
+================================================================================
+Bad-fold-no-indent
+================================================================================
+From: <mailinglist-dev-public-request@lists.devstuff.org>
+To: test@test.net
+Subject: confirm
+a07bec5da9a9c86cfe34e4984e6713267d1bf9c4
+
+--------------------------------------------------------------------------------
+
+(ERROR
+  (addressheader
+    (addrkind
+      (from))
+    (addresslist
+      (internetaddress
+        (mailbox
+          (angle_addr
+            (local
+              (word))
+            (domain
+              (word)
+              (word)
+              (word)))))))
+  (addressheader
+    (addrkind
+      (to))
+    (addresslist
+      (internetaddress
+        (mailbox
+          (local
+            (word))
+          (domain
+            (word)
+            (word))))))
+  (subjectheader
+    (subject)
+    (subjectfield))
+  (headertype))

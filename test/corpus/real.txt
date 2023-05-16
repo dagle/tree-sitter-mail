@@ -7,17 +7,20 @@ Cc: arch-dev-public@lists.archlinux.org
 Date: Fri 03 Mar 2023 12:29:39 PM CET
 Subject: Re: Dependencies from pkg-config files
 
+apa: bepa
 ouaeuaeou
+
 
 > - Some missing dependencies (gobject-introspection, systemd, util-
 > linux) are caused because the pkg-config files are packaged separately
 > from the libraries. This shouldn't happen in our distribution, because
 > we don't split development packages. pkg-config files and the related
 > header files should be in the same package where the library is found.
+
+oauou
+auoe
 -- 
-apa
-bepa
-cepa
+aoeu oauoeau
 --------------------------------------------------------------------------------
 
 (message
@@ -28,26 +31,42 @@ cepa
       (addresslist
         (internetaddress
           (mailbox
-            (name)
-            (local)
-            (domain)))))
+            (name
+              (word)
+              (word))
+            (angle_addr
+              (local
+                (word))
+              (domain
+                (word)
+                (word)))))))
     (addressheader
       (addrkind
         (to))
       (addresslist
         (internetaddress
           (mailbox
-            (name)
-            (local)
-            (domain)))))
+            (name
+              (word)
+              (word))
+            (angle_addr
+              (local
+                (word))
+              (domain
+                (word)
+                (word)))))))
     (addressheader
       (addrkind
         (cc))
       (addresslist
         (internetaddress
           (mailbox
-            (local)
-            (domain)))))
+            (local
+              (word))
+            (domain
+              (word)
+              (word)
+              (word))))))
     (dateheader
       (date)
       (datefield))
@@ -55,15 +74,17 @@ cepa
       (subject)
       (subjectfield)))
   (emailbody
-    (textline)
-    (quote1)
-    (quote1)
-    (quote1)
-    (quote1)
-    (quote1))
-  (footer
-    (footersep)
-    (footertext
-      (footerline)
-      (footerline)
-      (footerline))))
+    (block
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line))
+    (footer
+      (footersep)
+      (footertext
+        (footerline)))))

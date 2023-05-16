@@ -31,7 +31,7 @@
           "named": true
         },
         {
-          "type": "seperator",
+          "type": "lspw",
           "named": true
         }
       ]
@@ -73,14 +73,105 @@
     }
   },
   {
+    "type": "angle_addr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "domain",
+          "named": true
+        },
+        {
+          "type": "local",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "bcc",
     "named": true,
     "fields": {}
   },
   {
+    "type": "block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "line",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "cc",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "ccontent",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "ctext",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "cfws",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "fws",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "comment",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ccontent",
+          "named": true
+        },
+        {
+          "type": "fws",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "date",
@@ -96,7 +187,7 @@
       "required": false,
       "types": [
         {
-          "type": "seperator",
+          "type": "lspw",
           "named": true
         }
       ]
@@ -127,10 +218,10 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "quotedstring",
+          "type": "word",
           "named": true
         }
       ]
@@ -145,31 +236,11 @@
       "required": true,
       "types": [
         {
-          "type": "quote1",
+          "type": "block",
           "named": true
         },
         {
-          "type": "quote2",
-          "named": true
-        },
-        {
-          "type": "quote3",
-          "named": true
-        },
-        {
-          "type": "quote4",
-          "named": true
-        },
-        {
-          "type": "quote5",
-          "named": true
-        },
-        {
-          "type": "quote6",
-          "named": true
-        },
-        {
-          "type": "textline",
+          "type": "footer",
           "named": true
         }
       ]
@@ -220,6 +291,26 @@
     "fields": {}
   },
   {
+    "type": "fws",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "group_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "mailbox_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "header",
     "named": true,
     "fields": {},
@@ -247,7 +338,7 @@
       "required": false,
       "types": [
         {
-          "type": "seperator",
+          "type": "lspw",
           "named": true
         }
       ]
@@ -295,9 +386,18 @@
         {
           "type": "mailbox",
           "named": true
+        },
+        {
+          "type": "mailgroup",
+          "named": true
         }
       ]
     }
+  },
+  {
+    "type": "line",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "local",
@@ -305,14 +405,19 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "quotedstring",
+          "type": "word",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "lspw",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "mailbox",
@@ -323,11 +428,49 @@
       "required": true,
       "types": [
         {
+          "type": "angle_addr",
+          "named": true
+        },
+        {
           "type": "domain",
           "named": true
         },
         {
           "type": "local",
+          "named": true
+        },
+        {
+          "type": "name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "mailbox_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "mailbox",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "mailgroup",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "group_list",
           "named": true
         },
         {
@@ -347,10 +490,6 @@
       "types": [
         {
           "type": "emailbody",
-          "named": true
-        },
-        {
-          "type": "footer",
           "named": true
         },
         {
@@ -389,7 +528,7 @@
       "required": false,
       "types": [
         {
-          "type": "seperator",
+          "type": "lspw",
           "named": true
         }
       ]
@@ -420,10 +559,10 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "quotedstring",
+          "type": "word",
           "named": true
         }
       ]
@@ -460,9 +599,19 @@
     "fields": {}
   },
   {
-    "type": "quotedstring",
+    "type": "quoted_string",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "fws",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "replyto",
@@ -471,11 +620,6 @@
   },
   {
     "type": "sender",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "seperator",
     "named": true,
     "fields": {}
   },
@@ -493,7 +637,7 @@
       "required": false,
       "types": [
         {
-          "type": "seperator",
+          "type": "lspw",
           "named": true
         }
       ]
@@ -524,7 +668,38 @@
     "fields": {}
   },
   {
+    "type": "word",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "quoted_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "\n",
+    "named": false
+  },
+  {
+    "type": "\r",
+    "named": false
+  },
+  {
     "type": "\"",
+    "named": false
+  },
+  {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
     "named": false
   },
   {
@@ -540,6 +715,10 @@
     "named": false
   },
   {
+    "type": ";",
+    "named": false
+  },
+  {
     "type": "<",
     "named": false
   },
@@ -552,12 +731,28 @@
     "named": false
   },
   {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "]",
+    "named": false
+  },
+  {
+    "type": "atom",
+    "named": true
+  },
+  {
     "type": "bcc",
     "named": false
   },
   {
     "type": "cc",
     "named": false
+  },
+  {
+    "type": "ctext",
+    "named": true
   },
   {
     "type": "date",
@@ -590,10 +785,6 @@
   {
     "type": "subject",
     "named": false
-  },
-  {
-    "type": "textline",
-    "named": true
   },
   {
     "type": "to",

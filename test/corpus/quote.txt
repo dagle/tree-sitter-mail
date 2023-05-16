@@ -34,27 +34,35 @@ mailinglist-dev-public-owner@lists.devstuff.org.
       (addresslist
         (internetaddress
           (mailbox
-            (local)
-            (domain)))))
+            (local
+              (word))
+            (domain
+              (word)
+              (word)
+              (word))))))
     (addressheader
       (addrkind
         (to))
       (addresslist
         (internetaddress
           (mailbox
-            (local)
-            (domain))))))
+            (local
+              (word))
+            (domain
+              (word)
+              (word)))))))
   (emailbody
-    (quote1)
-    (textline)
-    (quote1)
-    (textline)
-    (textline)
-    (quote1)
-    (quote2)
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline)))
+    (block
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line))))

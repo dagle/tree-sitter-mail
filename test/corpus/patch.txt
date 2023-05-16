@@ -11,15 +11,9 @@ apa | 1 -
 1 file changed, 1 deletion(-)
 delete mode 100644 apa
 
-diff --git a/apa b/apa
-deleted file mode 100644
-index 8b13789..0000000
---- a/apa
-+++ /dev/null
-@@ -1 +0,0 @@
--
--- 
-2.37.3
+auaoua
+oaeuauo
+
 --------------------------------------------------------------------------------
 
 (message
@@ -30,9 +24,16 @@ index 8b13789..0000000
       (addresslist
         (internetaddress
           (mailbox
-            (name)
-            (local)
-            (domain)))))
+            (name
+              (word)
+              (word))
+            (angle_addr
+              (local
+                (word)
+                (word))
+              (domain
+                (word)
+                (word)))))))
     (dateheader
       (date)
       (datefield))
@@ -40,19 +41,11 @@ index 8b13789..0000000
       (subject)
       (subjectfield)))
   (emailbody
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline)
-    (textline))
-  (footer
-    (footersep)
-    (footertext
-      (footerline))))
+    (block
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line)
+      (line))))
