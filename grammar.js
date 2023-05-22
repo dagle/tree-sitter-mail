@@ -5,8 +5,17 @@ module.exports = grammar({
   
   externals: $ => [
 	$._line_break,
-	$._wsp,
+	$.wsp,
 	$._eof,
+  ],
+  precedences: $ => [
+	  [$.cfws, $.lspw],
+  ],
+
+  conflicts: $ => [
+	  [$.addresslist, $.lspw],
+	  [$.angle_addr],
+	  [$.cfws, $.fws],
   ],
 
   rules: {
@@ -80,16 +89,17 @@ module.exports = grammar({
 
 	headertype: $ => /[!-9;-~]+/,
 	// headertype: $ => /.+/,
+	// _wsp: () => /[ \t]/,
 	headerentry: $ => $._fieldbody,
 	lspw: $ => repeat1(choice(
-		$._wsp,
-		seq($._line_break, $._wsp)
+		$.wsp,
+		seq($._line_break, $.wsp)
 	)),
 	
 	ctext: () => /[!-\'*-\[-\]-~]+/,
 	// ctext: () => /[^\(\)\\\"]/,
 
-	fws: $ => seq(optional(seq(repeat($._wsp), $._line_break)), repeat1($._wsp)),
+	fws: $ => prec.left(seq(optional(seq(repeat($.wsp), $._line_break)), repeat1($.wsp))),
 	
 	ccontent: $ => choice(
 		$.ctext,
@@ -99,13 +109,16 @@ module.exports = grammar({
 	),
 	comment: $ => seq(
 		"(",
-		seq(repeat(seq(optional($.fws), $.ccontent)), optional($.fws)), 
+		// seq(repeat(seq(optional($.fws), $.ccontent)), optional($.fws)), 
+		/[^\n)]+/,
 		")",
 	),
-	cfws: $ => choice(
-		seq(repeat1(seq(optional($.fws), $.comment)), optional($.fws)),
-		$.fws,
-	),
+	cfws: $ => prec.right(choice(
+		seq(repeat1(seq(optional($.wsp), $.comment))),
+		repeat1($.wsp),
+		// seq(repeat1(seq(optional($.fws), $.comment)), optional($.fws)),
+		// $.fws,
+	)),
 
 	_bodycontent: $ => /[^\n]+/,
 
@@ -118,6 +131,7 @@ module.exports = grammar({
 	addresslist: $ => seq(
 		$.internetaddress,
 		repeat(seq(optional($.lspw), ",", $.internetaddress)),
+		// repeat($.wsp),
 		$._line_break,
 	),
 	internetaddress: $ => choice(
@@ -144,31 +158,42 @@ module.exports = grammar({
 	),
 
 	mailbox: $ => choice(
-		$._addrspec,
-		seq(optional($.name), $.angle_addr)
+		seq(
+			optional($.fws),
+			$.addrspec,
+		),
+		seq(
+			optional($.fws),
+			optional($.name),
+			$.angle_addr
+		)
 	),
-	angle_addr: $ => seq(
+	angle_addr: $ => prec.right(seq(
+		optional($.cfws),
 		"<",
-		$._addrspec,
+		$.addrspec,
 		">",
+		// $.cfws,
+		optional($.cfws),
+	)),
+
+	addrspec: $ => seq($.local, "@", $.domain),
+	domain: $ => choice(
+		$.dotatom, 
+		// $.domainliteral
 	),
 
-	_addrspec: $ => seq($.local, "@", $.domain),
-	domain: $ => seq($.word, repeat(seq(".", $.word))),
-	// XXX shouldn't this be just $._word?
-	// this is wrong imo
-	local: $ => seq($.word, repeat(seq(".", $.word))),
+	domainliteral: $ => /.+/,
 
-	local: $ => seq($.word, repeat(seq(".", $.word))),
+	local: $ => choice($.dotatom, $.quoted_string),
 	name: $ => repeat1($.word),
 	word: $ => choice(
-		prec(1, $._atom),
+		prec(1, $.atom),
 		prec(2, $.quoted_string),
 	),
 
-	_atom: $ => /[^\(\). <>,;:\\@\".\[\]\n]+/,
 	atom: $ => /[^()<>\[\]:;@\\,. \n\"]+/,
-	dotatomtext: $ => seq(
+	dotatom: $ => seq(
 		// optional($.cfws),
 		$.atom,
 		repeat(seq(".", $.atom))
