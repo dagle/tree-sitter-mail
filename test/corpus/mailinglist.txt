@@ -55,23 +55,37 @@ footer
       (addresslist
         (internetaddress
           (mailbox
-            (local
-              (word))
-            (domain
-              (word)
-              (word)
-              (word))))))
+            (addrspec
+              (local
+                (dotatom
+                  (cfws
+                    (wsp))
+                  (dotatom_text
+                    (atom))))
+              (domain
+                (dotatom
+                  (dotatom_text
+                    (atom)
+                    (atom)
+                    (atom)))))))))
     (addressheader
       (addrkind
         (to))
       (addresslist
         (internetaddress
           (mailbox
-            (local
-              (word))
-            (domain
-              (word)
-              (word))))))
+            (addrspec
+              (local
+                (dotatom
+                  (cfws
+                    (wsp))
+                  (dotatom_text
+                    (atom))))
+              (domain
+                (dotatom
+                  (dotatom_text
+                    (atom)
+                    (atom)))))))))
     (subjectheader
       (subject)
       (subjectfield))
@@ -81,22 +95,65 @@ footer
       (addresslist
         (internetaddress
           (mailbox
-            (local
-              (word))
-            (domain
-              (word)
-              (word)
-              (word))))))
+            (addrspec
+              (local
+                (dotatom
+                  (cfws
+                    (wsp))
+                  (dotatom_text
+                    (atom))))
+              (domain
+                (dotatom
+                  (dotatom_text
+                    (atom)
+                    (atom)
+                    (atom)))))))))
     (header
       (headertype)
       (headerentry))
     (midheader
       (message_id)
-      (mid
-        (midfield)))
+      (message_idfield
+        (msg_id
+          (cfws
+            (wsp))
+          (dotatom_text
+            (atom)
+            (atom)
+            (atom)
+            (atom)
+            (atom))
+          (dotatom_text
+            (atom)
+            (atom)
+            (atom)))))
     (dateheader
       (date)
-      (datefield))
+      (date_time
+        (day_of_week
+          (fws
+            (wsp))
+          (day_name))
+        (datefield
+          (day
+            (fws
+              (wsp))
+            (fws
+              (wsp)))
+          (month)
+          (year
+            (fws
+              (wsp))
+            (fws
+              (wsp))))
+        (time
+          (time_of_day
+            (hour)
+            (minute)
+            (second))
+          (zone
+            (fws
+              (wsp))))))
     (header
       (headertype)
       (headerentry))
@@ -109,7 +166,8 @@ footer
     (header
       (headertype)
       (headerentry
-        (lspw)))
+        (lspw
+          (wsp))))
     (header
       (headertype)
       (headerentry))
@@ -122,16 +180,25 @@ footer
       (addresslist
         (internetaddress
           (mailbox
-            (name
+            (fws
+              (wsp))
+            (phrase
               (word
                 (quoted_string)))
             (angle_addr
-              (local
-                (word))
-              (domain
-                (word)
-                (word)
-                (word))))))))
+              (cfws
+                (wsp))
+              (addrspec
+                (local
+                  (dotatom
+                    (dotatom_text
+                      (atom))))
+                (domain
+                  (dotatom
+                    (dotatom_text
+                      (atom)
+                      (atom)
+                      (atom)))))))))))
   (emailbody
     (block
       (line)

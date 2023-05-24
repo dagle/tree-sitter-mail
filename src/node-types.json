@@ -111,6 +111,25 @@
     }
   },
   {
+    "type": "atom2",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "atom",
+          "named": true
+        },
+        {
+          "type": "cfws",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "bcc",
     "named": true,
     "fields": {}
@@ -136,6 +155,21 @@
     "fields": {}
   },
   {
+    "type": "ccontent",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment2",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "cfws",
     "named": true,
     "fields": {},
@@ -157,15 +191,20 @@
   {
     "type": "comment",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "comment",
+          "named": true
+        }
+      ]
+    }
   },
   {
-    "type": "date",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "datefield",
+    "type": "comment2",
     "named": true,
     "fields": {},
     "children": {
@@ -173,7 +212,66 @@
       "required": false,
       "types": [
         {
-          "type": "lspw",
+          "type": "ccontent",
+          "named": true
+        },
+        {
+          "type": "fws",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "date",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "date_time",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "cfws",
+          "named": true
+        },
+        {
+          "type": "datefield",
+          "named": true
+        },
+        {
+          "type": "day_of_week",
+          "named": true
+        },
+        {
+          "type": "time",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "datefield",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "day",
+          "named": true
+        },
+        {
+          "type": "month",
+          "named": true
+        },
+        {
+          "type": "year",
           "named": true
         }
       ]
@@ -192,7 +290,46 @@
           "named": true
         },
         {
-          "type": "datefield",
+          "type": "date_time",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "day",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "fws",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "day_name",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "day_of_week",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "day_name",
+          "named": true
+        },
+        {
+          "type": "fws",
           "named": true
         }
       ]
@@ -215,6 +352,25 @@
   },
   {
     "type": "dotatom",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "cfws",
+          "named": true
+        },
+        {
+          "type": "dotatom_text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "dotatom_text",
     "named": true,
     "fields": {},
     "children": {
@@ -380,11 +536,25 @@
           "named": true
         },
         {
+          "type": "ref",
+          "named": true
+        },
+        {
           "type": "subjectheader",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "hour",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "in_reply_to",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "internetaddress",
@@ -465,7 +635,7 @@
           "named": true
         },
         {
-          "type": "name",
+          "type": "phrase",
           "named": true
         }
       ]
@@ -495,11 +665,19 @@
       "required": true,
       "types": [
         {
+          "type": "cfws",
+          "named": true
+        },
+        {
+          "type": "fws",
+          "named": true
+        },
+        {
           "type": "group_list",
           "named": true
         },
         {
-          "type": "name",
+          "type": "phrase",
           "named": true
         }
       ]
@@ -530,7 +708,7 @@
     "fields": {}
   },
   {
-    "type": "mid",
+    "type": "message_idfield",
     "named": true,
     "fields": {},
     "children": {
@@ -538,7 +716,7 @@
       "required": true,
       "types": [
         {
-          "type": "midfield",
+          "type": "msg_id",
           "named": true
         }
       ]
@@ -572,14 +750,62 @@
           "named": true
         },
         {
-          "type": "mid",
+          "type": "message_idfield",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "name",
+    "type": "midkind",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "in_reply_to",
+          "named": true
+        },
+        {
+          "type": "references",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "minute",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "month",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "msg_id",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "cfws",
+          "named": true
+        },
+        {
+          "type": "dotatom_text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "phrase",
     "named": true,
     "fields": {},
     "children": {
@@ -639,7 +865,51 @@
     }
   },
   {
+    "type": "ref",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "midkind",
+          "named": true
+        },
+        {
+          "type": "references_field",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "references",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "references_field",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "msg_id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "replyto",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "second",
     "named": true,
     "fields": {}
   },
@@ -688,6 +958,48 @@
     }
   },
   {
+    "type": "time",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "time_of_day",
+          "named": true
+        },
+        {
+          "type": "zone",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "time_of_day",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "hour",
+          "named": true
+        },
+        {
+          "type": "minute",
+          "named": true
+        },
+        {
+          "type": "second",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "to",
     "named": true,
     "fields": {}
@@ -701,11 +1013,41 @@
       "required": true,
       "types": [
         {
-          "type": "atom",
+          "type": "atom2",
           "named": true
         },
         {
           "type": "quoted_string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "year",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "fws",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "zone",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "fws",
           "named": true
         }
       ]
@@ -732,7 +1074,15 @@
     "named": false
   },
   {
+    "type": "+",
+    "named": false
+  },
+  {
     "type": ",",
+    "named": false
+  },
+  {
+    "type": "-",
     "named": false
   },
   {
@@ -760,6 +1110,82 @@
     "named": false
   },
   {
+    "type": "Apr",
+    "named": false
+  },
+  {
+    "type": "Aug",
+    "named": false
+  },
+  {
+    "type": "Dec",
+    "named": false
+  },
+  {
+    "type": "Feb",
+    "named": false
+  },
+  {
+    "type": "Fri",
+    "named": false
+  },
+  {
+    "type": "Jan",
+    "named": false
+  },
+  {
+    "type": "Jul",
+    "named": false
+  },
+  {
+    "type": "Jun",
+    "named": false
+  },
+  {
+    "type": "Mar",
+    "named": false
+  },
+  {
+    "type": "May",
+    "named": false
+  },
+  {
+    "type": "Mon",
+    "named": false
+  },
+  {
+    "type": "Nov",
+    "named": false
+  },
+  {
+    "type": "Oct",
+    "named": false
+  },
+  {
+    "type": "Sat",
+    "named": false
+  },
+  {
+    "type": "Sep",
+    "named": false
+  },
+  {
+    "type": "Sun",
+    "named": false
+  },
+  {
+    "type": "Thu",
+    "named": false
+  },
+  {
+    "type": "Tue",
+    "named": false
+  },
+  {
+    "type": "Wed",
+    "named": false
+  },
+  {
     "type": "[",
     "named": false
   },
@@ -780,8 +1206,8 @@
     "named": false
   },
   {
-    "type": "ctext",
-    "named": true
+    "type": "comments",
+    "named": false
   },
   {
     "type": "date",
@@ -800,7 +1226,19 @@
     "named": true
   },
   {
+    "type": "in-replay-to",
+    "named": false
+  },
+  {
+    "type": "keywords",
+    "named": false
+  },
+  {
     "type": "message-id",
+    "named": false
+  },
+  {
+    "type": "references",
     "named": false
   },
   {

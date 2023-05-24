@@ -34,23 +34,37 @@ mailinglist-dev-public-owner@lists.devstuff.org.
       (addresslist
         (internetaddress
           (mailbox
-            (local
-              (word))
-            (domain
-              (word)
-              (word)
-              (word))))))
+            (addrspec
+              (local
+                (dotatom
+                  (cfws
+                    (wsp))
+                  (dotatom_text
+                    (atom))))
+              (domain
+                (dotatom
+                  (dotatom_text
+                    (atom)
+                    (atom)
+                    (atom)))))))))
     (addressheader
       (addrkind
         (to))
       (addresslist
         (internetaddress
           (mailbox
-            (local
-              (word))
-            (domain
-              (word)
-              (word)))))))
+            (addrspec
+              (local
+                (dotatom
+                  (cfws
+                    (wsp))
+                  (dotatom_text
+                    (atom))))
+              (domain
+                (dotatom
+                  (dotatom_text
+                    (atom)
+                    (atom))))))))))
   (emailbody
     (block
       (line)

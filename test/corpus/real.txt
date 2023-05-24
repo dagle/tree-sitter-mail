@@ -31,45 +31,98 @@ aoeu oauoeau
       (addresslist
         (internetaddress
           (mailbox
-            (name
-              (word)
-              (word))
+            (phrase
+              (word
+                (atom2
+                  (cfws
+                    (wsp))
+                  (atom)
+                  (cfws
+                    (wsp))))
+              (word
+                (atom2
+                  (atom)
+                  (cfws
+                    (wsp)))))
             (angle_addr
-              (local
-                (word))
-              (domain
-                (word)
-                (word)))))))
+              (addrspec
+                (local
+                  (dotatom
+                    (dotatom_text
+                      (atom))))
+                (domain
+                  (dotatom
+                    (dotatom_text
+                      (atom)
+                      (atom))))))))))
     (addressheader
       (addrkind
         (to))
       (addresslist
         (internetaddress
           (mailbox
-            (name
-              (word)
-              (word))
+            (phrase
+              (word
+                (atom2
+                  (cfws
+                    (wsp))
+                  (atom)
+                  (cfws
+                    (wsp))))
+              (word
+                (atom2
+                  (atom)
+                  (cfws
+                    (wsp)))))
             (angle_addr
-              (local
-                (word))
-              (domain
-                (word)
-                (word)))))))
+              (addrspec
+                (local
+                  (dotatom
+                    (dotatom_text
+                      (atom))))
+                (domain
+                  (dotatom
+                    (dotatom_text
+                      (atom)
+                      (atom))))))))))
     (addressheader
       (addrkind
         (cc))
       (addresslist
         (internetaddress
           (mailbox
-            (local
-              (word))
-            (domain
-              (word)
-              (word)
-              (word))))))
-    (dateheader
+            (addrspec
+              (local
+                (dotatom
+                  (cfws
+                    (wsp))
+                  (dotatom_text
+                    (atom))))
+              (domain
+                (dotatom
+                  (dotatom_text
+                    (atom)
+                    (atom)
+                    (atom)))))))))
+    (ERROR
       (date)
-      (datefield))
+      (ERROR
+        (day_of_week
+          (fws
+            (wsp))
+          (day_name))
+        (wsp)
+        (day
+          (fws
+            (wsp))
+          (fws
+            (wsp))))
+      (wsp)
+      (ERROR
+        (UNEXPECTED 'P'))
+      (wsp)
+      (ERROR
+        (UNEXPECTED 'E')))
     (subjectheader
       (subject)
       (subjectfield)))

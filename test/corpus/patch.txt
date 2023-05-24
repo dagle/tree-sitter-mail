@@ -24,19 +24,58 @@ oaeuauo
       (addresslist
         (internetaddress
           (mailbox
-            (name
-              (word)
-              (word))
+            (phrase
+              (word
+                (atom2
+                  (cfws
+                    (wsp))
+                  (atom)
+                  (cfws
+                    (wsp))))
+              (word
+                (atom2
+                  (atom)
+                  (cfws
+                    (wsp)))))
             (angle_addr
-              (local
-                (word)
-                (word))
-              (domain
-                (word)
-                (word)))))))
+              (addrspec
+                (local
+                  (dotatom
+                    (dotatom_text
+                      (atom)
+                      (atom))))
+                (domain
+                  (dotatom
+                    (dotatom_text
+                      (atom)
+                      (atom))))))))))
     (dateheader
       (date)
-      (datefield))
+      (date_time
+        (day_of_week
+          (fws
+            (wsp))
+          (day_name))
+        (datefield
+          (day
+            (fws
+              (wsp))
+            (fws
+              (wsp)))
+          (month)
+          (year
+            (fws
+              (wsp))
+            (fws
+              (wsp))))
+        (time
+          (time_of_day
+            (hour)
+            (minute)
+            (second))
+          (zone
+            (fws
+              (wsp))))))
     (subjectheader
       (subject)
       (subjectfield)))
