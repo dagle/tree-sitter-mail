@@ -5,15 +5,15 @@ module.exports = grammar({
   
   externals: $ => [
 	$._line_break,
-	$.wsp,
+	// $.wsp,
 	$._eof,
   ],
   precedences: $ => [
-	  [$.cfws, $.lspw],
+	  [$.cfws],
   ],
 
   conflicts: $ => [
-	  [$.addresslist, $.lspw],
+	  [$.addresslist],
 	  [$.angle_addr],
 	  [$.cfws, $.fws],
 	  [$.dotatom],
@@ -24,6 +24,9 @@ module.exports = grammar({
 	  [$.msg_id],
 	  [$.ccontent],
 	  [$.date_time],
+	  [$.cfws],
+	  [$.cfws, $.mailbox],
+	  [$.mailgroup, $.mailbox, $.cfws],
   ],
 
   rules: {
@@ -120,10 +123,6 @@ module.exports = grammar({
 
 	headertype: $ => /[!-9;-~]+/,
 	headerentry: $ => $._fieldbody,
-	lspw: $ => repeat1(choice(
-		$.wsp,
-		seq($._line_break, $.wsp)
-	)),
 	
 	date_time: $ => seq(
 		optional(seq($.day_of_week, ",")),
@@ -149,7 +148,10 @@ module.exports = grammar({
 	),
 	day: $ => seq(
 		optional($.fws),
-		repeat1(/\d\d/),
+		choice(
+			/\d/,
+			/\d\d/,
+		),
 		$.fws,
 	),
 
@@ -249,28 +251,28 @@ module.exports = grammar({
 		optional($.fws),
 		")",
 	),
+	
+	line_break: $ => $._line_break,
 
-	fws: $ => prec.left(seq(optional(seq(repeat($.wsp), $._line_break)), repeat1($.wsp))),
-	cfws2: $ => prec.right(choice(
+	wsp: _ => /[\t ]/,
+
+	fws: $ => prec.right(seq(optional(seq(repeat($.wsp), $.line_break)), repeat1($.wsp))),
+
+	cfws: $ => choice(
 		seq(repeat1(seq(optional($.fws), $.comment)), repeat($.fws)),
 		repeat1($.fws),
-	)),
-	cfws: $ => prec.right(choice(
-		seq(repeat1(seq(optional($.wsp), $.comment)), repeat($.wsp)),
-		repeat1($.wsp),
-	)),
+	),
 
 	_bodycontent: $ => /[^\n]+/,
 
 	_fieldbody: $ => seq(
-		$._bodycontent, 
-		repeat(seq(optional($.lspw), $._bodycontent)),
+		repeat1(seq(optional($.fws), /[^\n]+/)),
 		$._line_break
 	),
-
+	
 	addresslist: $ => seq(
 		$.internetaddress,
-		repeat(seq(optional($.lspw), ",", $.internetaddress)),
+		repeat(seq(",", $.internetaddress)),
 		$._line_break,
 	),
 	internetaddress: $ => choice(
@@ -278,7 +280,7 @@ module.exports = grammar({
 		$.mailgroup,
 	),
 	
-	mailgroup: $ => prec.right(seq (
+	mailgroup: $ => prec.left(seq (
 		optional($.fws),
 		$.phrase,
 		":",
@@ -292,7 +294,7 @@ module.exports = grammar({
 
 	group_list: $ => choice(
 		$.mailbox_list,
-		// CFWS
+		// $.cfws
 	),
 
 	mailbox_list: $ => seq(
@@ -311,12 +313,11 @@ module.exports = grammar({
 			$.angle_addr
 		)
 	),
-	angle_addr: $ => prec.right(seq(
+	angle_addr: $ => prec.left(seq(
 		optional($.cfws),
 		"<",
 		$.addrspec,
 		">",
-		// $.cfws,
 		optional($.cfws),
 	)),
 
@@ -330,9 +331,9 @@ module.exports = grammar({
 
 	local: $ => choice($.dotatom, $.quoted_string),
 	phrase: $ => seq(
-		// optional($.cfws),
+		optional($.cfws),
 		repeat1($.word),
-		// optional($.cfws),
+		optional($.cfws),
 	),
 
 	word: $ => choice(
@@ -340,15 +341,6 @@ module.exports = grammar({
 		prec(2, $.quoted_string),
 	),
 
-	unstructured: $ => seq(
-		repeat(
-			seq(
-				$.fws,
-				/[^\n]/
-			)
-		),
-		repeat($.wsp)
-	),
 
 	atom2: $ => seq(
 		optional($.cfws),

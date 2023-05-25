@@ -29,10 +29,6 @@
         {
           "type": "internetaddress",
           "named": true
-        },
-        {
-          "type": "lspw",
-          "named": true
         }
       ]
     }
@@ -182,7 +178,7 @@
           "named": true
         },
         {
-          "type": "wsp",
+          "type": "fws",
           "named": true
         }
       ]
@@ -456,6 +452,10 @@
       "required": true,
       "types": [
         {
+          "type": "line_break",
+          "named": true
+        },
+        {
           "type": "wsp",
           "named": true
         }
@@ -505,7 +505,7 @@
       "required": false,
       "types": [
         {
-          "type": "lspw",
+          "type": "fws",
           "named": true
         }
       ]
@@ -581,6 +581,11 @@
     "fields": {}
   },
   {
+    "type": "line_break",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "local",
     "named": true,
     "fields": {},
@@ -594,21 +599,6 @@
         },
         {
           "type": "quoted_string",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "lspw",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "wsp",
           "named": true
         }
       ]
@@ -731,7 +721,7 @@
       "required": false,
       "types": [
         {
-          "type": "lspw",
+          "type": "fws",
           "named": true
         }
       ]
@@ -812,6 +802,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "cfws",
+          "named": true
+        },
         {
           "type": "word",
           "named": true
@@ -932,7 +926,7 @@
       "required": false,
       "types": [
         {
-          "type": "lspw",
+          "type": "fws",
           "named": true
         }
       ]

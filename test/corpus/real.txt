@@ -4,7 +4,7 @@ Real
 From: Christian Hesse <list@eworm.de>
 To: Balló György <bgyorgy@archlinux.org>
 Cc: arch-dev-public@lists.archlinux.org
-Date: Fri 03 Mar 2023 12:29:39 PM CET
+Date: Fri, 3 Mar 2023 15:25:18 +0100
 Subject: Re: Dependencies from pkg-config files
 
 apa: bepa
@@ -31,19 +31,21 @@ aoeu oauoeau
       (addresslist
         (internetaddress
           (mailbox
+            (fws
+              (wsp))
             (phrase
               (word
                 (atom2
-                  (cfws
-                    (wsp))
                   (atom)
                   (cfws
-                    (wsp))))
+                    (fws
+                      (wsp)))))
               (word
                 (atom2
                   (atom)
                   (cfws
-                    (wsp)))))
+                    (fws
+                      (wsp))))))
             (angle_addr
               (addrspec
                 (local
@@ -61,19 +63,21 @@ aoeu oauoeau
       (addresslist
         (internetaddress
           (mailbox
+            (fws
+              (wsp))
             (phrase
               (word
                 (atom2
-                  (cfws
-                    (wsp))
                   (atom)
                   (cfws
-                    (wsp))))
+                    (fws
+                      (wsp)))))
               (word
                 (atom2
                   (atom)
                   (cfws
-                    (wsp)))))
+                    (fws
+                      (wsp))))))
             (angle_addr
               (addrspec
                 (local
@@ -91,11 +95,11 @@ aoeu oauoeau
       (addresslist
         (internetaddress
           (mailbox
+            (fws
+              (wsp))
             (addrspec
               (local
                 (dotatom
-                  (cfws
-                    (wsp))
                   (dotatom_text
                     (atom))))
               (domain
@@ -104,28 +108,38 @@ aoeu oauoeau
                     (atom)
                     (atom)
                     (atom)))))))))
-    (ERROR
+    (dateheader
       (date)
-      (ERROR
+      (date_time
         (day_of_week
           (fws
             (wsp))
           (day_name))
-        (wsp)
-        (day
-          (fws
-            (wsp))
-          (fws
-            (wsp))))
-      (wsp)
-      (ERROR
-        (UNEXPECTED 'P'))
-      (wsp)
-      (ERROR
-        (UNEXPECTED 'E')))
+        (datefield
+          (day
+            (fws
+              (wsp))
+            (fws
+              (wsp)))
+          (month)
+          (year
+            (fws
+              (wsp))
+            (fws
+              (wsp))))
+        (time
+          (time_of_day
+            (hour)
+            (minute)
+            (second))
+          (zone
+            (fws
+              (wsp))))))
     (subjectheader
       (subject)
-      (subjectfield)))
+      (subjectfield
+        (fws
+          (wsp)))))
   (emailbody
     (block
       (line)

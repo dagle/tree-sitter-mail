@@ -1,4 +1,32 @@
 ================================================================================
+cfws2
+================================================================================
+References:     <testabcd.1@silly.test> (apa)
+
+--------------------------------------------------------------------------------
+
+(message
+  (headers
+    (ref
+      (midkind
+        (references))
+      (references_field
+        (msg_id
+          (cfws
+            (fws
+              (wsp)))
+          (dotatom_text
+            (atom)
+            (atom))
+          (dotatom_text
+            (atom)
+            (atom))
+          (cfws
+            (fws
+              (wsp))
+            (comment)))))))
+
+================================================================================
 Refereces
 ================================================================================
 References: <testabcd.1@silly.test> <testabcd.2@silly.test>
@@ -14,27 +42,45 @@ References: <testabcd.1@silly.test> <testabcd.2@silly.test>
       (references_field
         (msg_id
           (cfws
-            (wsp))
+            (fws
+              (wsp)))
           (dotatom_text
             (atom)
             (atom))
           (dotatom_text
             (atom)
-            (atom))
-          (cfws
-            (wsp)))
+            (atom)))
         (msg_id
+          (cfws
+            (fws
+              (wsp)))
           (dotatom_text
             (atom)
             (atom))
           (dotatom_text
             (atom)
-            (atom))))))
-  (ERROR
-    (headertype)
-    (UNEXPECTED 'e')
-    (UNEXPECTED 'i')
-    (UNEXPECTED 'e')))
+            (atom)))
+        (msg_id
+          (cfws
+            (fws
+              (line_break)
+              (wsp)))
+          (dotatom_text
+            (atom)
+            (atom))
+          (dotatom_text
+            (atom)
+            (atom)))
+        (msg_id
+          (cfws
+            (fws
+              (wsp)))
+          (dotatom_text
+            (atom)
+            (atom))
+          (dotatom_text
+            (atom)
+            (atom)))))))
 
 ================================================================================
 Message-ID
@@ -50,7 +96,8 @@ Message-ID: <testabcd.1234@silly.test> (aeuaoeu)
       (message_idfield
         (msg_id
           (cfws
-            (wsp))
+            (fws
+              (wsp)))
           (dotatom_text
             (atom)
             (atom))
@@ -58,7 +105,8 @@ Message-ID: <testabcd.1234@silly.test> (aeuaoeu)
             (atom)
             (atom))
           (cfws
-            (wsp)
+            (fws
+              (wsp))
             (comment)))))))
 
 ================================================================================
@@ -85,21 +133,18 @@ Date: Thu,
         (datefield
           (day
             (fws
-              (wsp)
+              (line_break)
               (wsp))
             (fws
-              (wsp)
-              (wsp)
-              (wsp)
+              (line_break)
               (wsp)))
           (month)
           (year
             (fws
-              (wsp)
-              (wsp)
+              (line_break)
               (wsp))
             (fws
-              (wsp)
+              (line_break)
               (wsp))))
         (time
           (time_of_day
@@ -107,16 +152,14 @@ Date: Thu,
             (minute))
           (zone
             (fws
-              (wsp)
-              (wsp)
-              (wsp)
-              (wsp)
+              (line_break)
               (wsp))))))))
 
 ================================================================================
-Multiname
+Addr-Spec
 ================================================================================
-To: apa bep cepa <mailinglist-dev-public-request@lists.devstuff.org>
+To: mailinglist-dev-public-request@lists.devstuff.org,
+  mailinglist-dev-public-request@lists.devstuff.org
 
 --------------------------------------------------------------------------------
 
@@ -128,24 +171,66 @@ To: apa bep cepa <mailinglist-dev-public-request@lists.devstuff.org>
       (addresslist
         (internetaddress
           (mailbox
+            (fws
+              (wsp))
+            (addrspec
+              (local
+                (dotatom
+                  (dotatom_text
+                    (atom))))
+              (domain
+                (dotatom
+                  (dotatom_text
+                    (atom)
+                    (atom)
+                    (atom)))))))
+        (internetaddress
+          (mailbox
+            (fws
+              (line_break)
+              (wsp))
+            (addrspec
+              (local
+                (dotatom
+                  (dotatom_text
+                    (atom))))
+              (domain
+                (dotatom
+                  (dotatom_text
+                    (atom)
+                    (atom)
+                    (atom)))))))))))
+
+================================================================================
+Multiname
+================================================================================
+To: apa cepa <mailinglist-dev-public-request@lists.devstuff.org>
+
+--------------------------------------------------------------------------------
+
+(message
+  (headers
+    (addressheader
+      (addrkind
+        (to))
+      (addresslist
+        (internetaddress
+          (mailbox
+            (fws
+              (wsp))
             (phrase
               (word
                 (atom2
-                  (cfws
-                    (wsp))
                   (atom)
                   (cfws
-                    (wsp))))
+                    (fws
+                      (wsp)))))
               (word
                 (atom2
                   (atom)
                   (cfws
-                    (wsp))))
-              (word
-                (atom2
-                  (atom)
-                  (cfws
-                    (wsp)))))
+                    (fws
+                      (wsp))))))
             (angle_addr
               (addrspec
                 (local
@@ -158,6 +243,96 @@ To: apa bep cepa <mailinglist-dev-public-request@lists.devstuff.org>
                       (atom)
                       (atom)
                       (atom))))))))))))
+
+================================================================================
+None-group
+================================================================================
+To: apa cepa <mailinglist-dev-public-request@lists.devstuff.org>,
+  apa cepa <mailinglist-dev-public-request@lists.devstuff.org>,
+  bepa@xyz.com
+
+--------------------------------------------------------------------------------
+
+(message
+  (headers
+    (addressheader
+      (addrkind
+        (to))
+      (addresslist
+        (internetaddress
+          (mailbox
+            (fws
+              (wsp))
+            (phrase
+              (word
+                (atom2
+                  (atom)
+                  (cfws
+                    (fws
+                      (wsp)))))
+              (word
+                (atom2
+                  (atom)
+                  (cfws
+                    (fws
+                      (wsp))))))
+            (angle_addr
+              (addrspec
+                (local
+                  (dotatom
+                    (dotatom_text
+                      (atom))))
+                (domain
+                  (dotatom
+                    (dotatom_text
+                      (atom)
+                      (atom)
+                      (atom))))))))
+        (internetaddress
+          (mailbox
+            (fws
+              (line_break)
+              (wsp))
+            (phrase
+              (word
+                (atom2
+                  (atom)
+                  (cfws
+                    (fws
+                      (wsp)))))
+              (word
+                (atom2
+                  (atom)
+                  (cfws
+                    (fws
+                      (wsp))))))
+            (angle_addr
+              (addrspec
+                (local
+                  (dotatom
+                    (dotatom_text
+                      (atom))))
+                (domain
+                  (dotatom
+                    (dotatom_text
+                      (atom)
+                      (atom)
+                      (atom))))))))
+        (internetaddress
+          (mailbox
+            (fws
+              (line_break)
+              (wsp))
+            (addrspec
+              (local
+                (dotatom
+                  (dotatom_text
+                    (atom))))
+              (domain
+                (dotatom
+                  (dotatom_text
+                    (atom)
+                    (atom)))))))))))
 
 ================================================================================
 Multigroup
@@ -174,38 +349,42 @@ To: Omp cutie: apa bep cepa <mailinglist-dev-public-request@lists.devstuff.org> 
       (addresslist
         (internetaddress
           (mailgroup
+            (fws
+              (wsp))
             (phrase
               (word
                 (atom2
-                  (cfws
-                    (wsp))
                   (atom)
                   (cfws
-                    (wsp))))
+                    (fws
+                      (wsp)))))
               (word
                 (atom2
                   (atom))))
             (group_list
               (mailbox_list
                 (mailbox
+                  (fws
+                    (wsp))
                   (phrase
                     (word
                       (atom2
-                        (cfws
-                          (wsp))
                         (atom)
                         (cfws
-                          (wsp))))
+                          (fws
+                            (wsp)))))
                     (word
                       (atom2
                         (atom)
                         (cfws
-                          (wsp))))
+                          (fws
+                            (wsp)))))
                     (word
                       (atom2
                         (atom)
                         (cfws
-                          (wsp)))))
+                          (fws
+                            (wsp))))))
                   (angle_addr
                     (addrspec
                       (local
@@ -219,7 +398,8 @@ To: Omp cutie: apa bep cepa <mailinglist-dev-public-request@lists.devstuff.org> 
                             (atom)
                             (atom)))))
                     (cfws
-                      (wsp))))))))))))
+                      (fws
+                        (wsp)))))))))))))
 
 ================================================================================
 Empty group
@@ -236,14 +416,15 @@ To: Omp cutie: ;
       (addresslist
         (internetaddress
           (mailgroup
+            (fws
+              (wsp))
             (phrase
               (word
                 (atom2
-                  (cfws
-                    (wsp))
                   (atom)
                   (cfws
-                    (wsp))))
+                    (fws
+                      (wsp)))))
               (word
                 (atom2
                   (atom))))
@@ -265,14 +446,15 @@ To: Apa <(apa \(eau\) cxpa)tist@test.com>
       (addresslist
         (internetaddress
           (mailbox
+            (fws
+              (wsp))
             (phrase
               (word
                 (atom2
-                  (cfws
-                    (wsp))
                   (atom)
                   (cfws
-                    (wsp)))))
+                    (fws
+                      (wsp))))))
             (angle_addr
               (addrspec
                 (local
@@ -302,14 +484,15 @@ To: Per ( aou \))<xyz@baeou.com>
       (addresslist
         (internetaddress
           (mailbox
+            (fws
+              (wsp))
             (phrase
               (word
                 (atom2
-                  (cfws
-                    (wsp))
                   (atom)
                   (cfws
-                    (wsp)
+                    (fws
+                      (wsp))
                     (comment)))))
             (angle_addr
               (addrspec
@@ -361,12 +544,17 @@ Sender: "mailinglist-dev-public" <mailinglist-dev-public-bounces@lists.devstuff.
               (word
                 (quoted_string
                   (fws
+                    (line_break)
                     (wsp))
                   (fws
-                    (wsp)))))
-            (angle_addr
+                    (line_break)
+                    (wsp))))
               (cfws
-                (wsp))
+                (fws
+                  (wsp)
+                  (line_break)
+                  (wsp))))
+            (angle_addr
               (addrspec
                 (local
                   (dotatom
@@ -384,11 +572,11 @@ Sender: "mailinglist-dev-public" <mailinglist-dev-public-bounces@lists.devstuff.
       (addresslist
         (internetaddress
           (mailbox
+            (fws
+              (wsp))
             (addrspec
               (local
                 (dotatom
-                  (cfws
-                    (wsp))
                   (dotatom_text
                     (atom))))
               (domain
@@ -398,11 +586,11 @@ Sender: "mailinglist-dev-public" <mailinglist-dev-public-bounces@lists.devstuff.
                     (atom)))))))
         (internetaddress
           (mailbox
+            (fws
+              (wsp))
             (addrspec
               (local
                 (dotatom
-                  (cfws
-                    (wsp))
                   (dotatom_text
                     (atom))))
               (domain
@@ -412,14 +600,15 @@ Sender: "mailinglist-dev-public" <mailinglist-dev-public-bounces@lists.devstuff.
                     (atom)))))))
         (internetaddress
           (mailbox
+            (fws
+              (wsp))
             (phrase
               (word
                 (atom2
-                  (cfws
-                    (wsp))
                   (atom)
                   (cfws
-                    (wsp)))))
+                    (fws
+                      (wsp))))))
             (angle_addr
               (addrspec
                 (local
@@ -433,20 +622,20 @@ Sender: "mailinglist-dev-public" <mailinglist-dev-public-bounces@lists.devstuff.
                       (atom))))))))
         (internetaddress
           (mailgroup
+            (fws
+              (wsp))
             (phrase
               (word
                 (atom2
-                  (cfws
-                    (wsp))
                   (atom))))
             (group_list
               (mailbox_list
                 (mailbox
+                  (fws
+                    (wsp))
                   (addrspec
                     (local
                       (dotatom
-                        (cfws
-                          (wsp))
                         (dotatom_text
                           (atom))))
                     (domain
@@ -455,31 +644,35 @@ Sender: "mailinglist-dev-public" <mailinglist-dev-public-bounces@lists.devstuff.
                           (atom)
                           (atom))
                         (cfws
-                          (wsp))))))))))))
+                          (fws
+                            (wsp)))))))))))))
     (addressheader
       (addrkind
         (to))
       (addresslist
         (internetaddress
           (mailbox
+            (fws
+              (wsp))
             (phrase
               (word
                 (atom2
-                  (cfws
-                    (wsp))
                   (atom)
                   (cfws
-                    (wsp))))
+                    (fws
+                      (wsp)))))
               (word
                 (atom2
                   (atom)
                   (cfws
-                    (wsp))))
+                    (fws
+                      (wsp)))))
               (word
                 (atom2
                   (atom)
                   (cfws
-                    (wsp)))))
+                    (fws
+                      (wsp))))))
             (angle_addr
               (addrspec
                 (local
@@ -494,18 +687,20 @@ Sender: "mailinglist-dev-public" <mailinglist-dev-public-bounces@lists.devstuff.
                       (atom))))))))))
     (subjectheader
       (subject)
-      (subjectfield))
+      (subjectfield
+        (fws
+          (wsp))))
     (addressheader
       (addrkind
         (replyto))
       (addresslist
         (internetaddress
           (mailbox
+            (fws
+              (wsp))
             (addrspec
               (local
                 (dotatom
-                  (cfws
-                    (wsp))
                   (dotatom_text
                     (atom))))
               (domain
@@ -516,13 +711,16 @@ Sender: "mailinglist-dev-public" <mailinglist-dev-public-bounces@lists.devstuff.
                     (atom)))))))))
     (header
       (headertype)
-      (headerentry))
+      (headerentry
+        (fws
+          (wsp))))
     (midheader
       (message_id)
       (message_idfield
         (msg_id
           (cfws
-            (wsp))
+            (fws
+              (wsp)))
           (dotatom_text
             (atom)
             (atom)
@@ -562,22 +760,34 @@ Sender: "mailinglist-dev-public" <mailinglist-dev-public-bounces@lists.devstuff.
               (wsp))))))
     (header
       (headertype)
-      (headerentry))
+      (headerentry
+        (fws
+          (wsp))))
     (header
       (headertype)
-      (headerentry))
+      (headerentry
+        (fws
+          (wsp))))
     (header
       (headertype)
-      (headerentry))
+      (headerentry
+        (fws
+          (wsp))))
     (header
       (headertype)
-      (headerentry))
+      (headerentry
+        (fws
+          (wsp))))
     (header
       (headertype)
-      (headerentry))
+      (headerentry
+        (fws
+          (wsp))))
     (header
       (headertype)
-      (headerentry))
+      (headerentry
+        (fws
+          (wsp))))
     (addressheader
       (addrkind
         (sender))
@@ -588,10 +798,11 @@ Sender: "mailinglist-dev-public" <mailinglist-dev-public-bounces@lists.devstuff.
               (wsp))
             (phrase
               (word
-                (quoted_string)))
-            (angle_addr
+                (quoted_string))
               (cfws
-                (wsp))
+                (fws
+                  (wsp))))
+            (angle_addr
               (addrspec
                 (local
                   (dotatom
@@ -605,11 +816,95 @@ Sender: "mailinglist-dev-public" <mailinglist-dev-public-bounces@lists.devstuff.
                       (atom))))))))))))
 
 ================================================================================
+A weird field
+================================================================================
+To:A Group(Some people) :Chris Jones <c@(Chris's host.)public.example> ;
+
+--------------------------------------------------------------------------------
+
+(message
+  (headers
+    (addressheader
+      (addrkind
+        (to))
+      (addresslist
+        (internetaddress
+          (mailgroup
+            (phrase
+              (word
+                (atom2
+                  (atom)
+                  (cfws
+                    (fws
+                      (wsp)))))
+              (word
+                (atom2
+                  (atom)
+                  (cfws
+                    (comment)
+                    (fws
+                      (wsp))))))
+            (group_list
+              (mailbox_list
+                (mailbox
+                  (phrase
+                    (word
+                      (atom2
+                        (atom)
+                        (cfws
+                          (fws
+                            (wsp)))))
+                    (word
+                      (atom2
+                        (atom)
+                        (cfws
+                          (fws
+                            (wsp))))))
+                  (angle_addr
+                    (addrspec
+                      (local
+                        (dotatom
+                          (dotatom_text
+                            (atom))))
+                      (domain
+                        (dotatom
+                          (cfws
+                            (comment))
+                          (dotatom_text
+                            (atom)
+                            (atom)))))
+                    (cfws
+                      (fws
+                        (wsp)))))))))))))
+
+================================================================================
+Lots of spaces
+================================================================================
+Message-ID:              <testabcd.1234@silly.test>
+
+--------------------------------------------------------------------------------
+
+(message
+  (headers
+    (midheader
+      (message_id)
+      (message_idfield
+        (msg_id
+          (cfws
+            (fws
+              (wsp)))
+          (dotatom_text
+            (atom)
+            (atom))
+          (dotatom_text
+            (atom)
+            (atom)))))))
+
+================================================================================
 Lots of comments
 ================================================================================
 From: Pete(A nice \) chap) <pete(his account)@silly.test(his host)>
-To:A Group(Some people)
-	:Chris Jones <c@(Chris's host.)public.example>,
+To:A Group(Some people) :Chris Jones <c@(Chris's host.)public.example>,
 		joe@example.org,
  John <jdoe@one.test> (my dear friend); (the end of the group)
 Cc:(Empty list)(start)Hidden recipients  : ; (apa (cepa) bepa)
@@ -632,15 +927,16 @@ Testing.
       (addresslist
         (internetaddress
           (mailbox
+            (fws
+              (wsp))
             (phrase
               (word
                 (atom2
-                  (cfws
-                    (wsp))
                   (atom)
                   (cfws
                     (comment)
-                    (wsp)))))
+                    (fws
+                      (wsp))))))
             (angle_addr
               (addrspec
                 (local
@@ -667,15 +963,15 @@ Testing.
                 (atom2
                   (atom)
                   (cfws
-                    (wsp))))
+                    (fws
+                      (wsp)))))
               (word
                 (atom2
                   (atom)
                   (cfws
-                    (comment))))
-              (word
-                (atom2
-                  (atom))))
+                    (comment)
+                    (fws
+                      (wsp))))))
             (group_list
               (mailbox_list
                 (mailbox
@@ -684,12 +980,14 @@ Testing.
                       (atom2
                         (atom)
                         (cfws
-                          (wsp))))
+                          (fws
+                            (wsp)))))
                     (word
                       (atom2
                         (atom)
                         (cfws
-                          (wsp)))))
+                          (fws
+                            (wsp))))))
                   (angle_addr
                     (addrspec
                       (local
@@ -705,12 +1003,11 @@ Testing.
                             (atom)))))))
                 (mailbox
                   (fws
+                    (line_break)
                     (wsp))
                   (addrspec
                     (local
                       (dotatom
-                        (cfws
-                          (wsp))
                         (dotatom_text
                           (atom))))
                     (domain
@@ -720,13 +1017,15 @@ Testing.
                           (atom))))))
                 (mailbox
                   (fws
+                    (line_break)
                     (wsp))
                   (phrase
                     (word
                       (atom2
                         (atom)
                         (cfws
-                          (wsp)))))
+                          (fws
+                            (wsp))))))
                   (angle_addr
                     (addrspec
                       (local
@@ -739,10 +1038,12 @@ Testing.
                             (atom)
                             (atom)))))
                     (cfws
-                      (wsp)
+                      (fws
+                        (wsp))
                       (comment))))))
             (cfws
-              (wsp)
+              (fws
+                (wsp))
               (comment))))))
     (addressheader
       (addrkind
@@ -758,17 +1059,19 @@ Testing.
                     (comment))
                   (atom)
                   (cfws
-                    (wsp))))
+                    (fws
+                      (wsp)))))
               (word
                 (atom2
                   (atom)
                   (cfws
-                    (wsp)
-                    (wsp)))))
+                    (fws
+                      (wsp))))))
             (fws
               (wsp))
             (cfws
-              (wsp)
+              (fws
+                (wsp))
               (comment
                 (comment)))))))
     (dateheader
@@ -781,21 +1084,18 @@ Testing.
         (datefield
           (day
             (fws
-              (wsp)
+              (line_break)
               (wsp))
             (fws
-              (wsp)
-              (wsp)
-              (wsp)
+              (line_break)
               (wsp)))
           (month)
           (year
             (fws
-              (wsp)
-              (wsp)
+              (line_break)
               (wsp))
             (fws
-              (wsp)
+              (line_break)
               (wsp))))
         (time
           (time_of_day
@@ -803,33 +1103,19 @@ Testing.
             (minute))
           (zone
             (fws
-              (wsp)
-              (wsp)
-              (wsp)
-              (wsp)
+              (line_break)
               (wsp))))
         (cfws
-          (wsp)
+          (fws
+            (wsp))
           (comment))))
     (midheader
       (message_id)
       (message_idfield
         (msg_id
           (cfws
-            (wsp)
-            (wsp)
-            (wsp)
-            (wsp)
-            (wsp)
-            (wsp)
-            (wsp)
-            (wsp)
-            (wsp)
-            (wsp)
-            (wsp)
-            (wsp)
-            (wsp)
-            (wsp))
+            (fws
+              (wsp)))
           (dotatom_text
             (atom)
             (atom))
@@ -857,9 +1143,9 @@ a07bec5da9a9c86cfe34e4984e6713267d1bf9c4
     (addresslist
       (internetaddress
         (mailbox
+          (fws
+            (wsp))
           (angle_addr
-            (cfws
-              (wsp))
             (addrspec
               (local
                 (dotatom
@@ -877,11 +1163,11 @@ a07bec5da9a9c86cfe34e4984e6713267d1bf9c4
     (addresslist
       (internetaddress
         (mailbox
+          (fws
+            (wsp))
           (addrspec
             (local
               (dotatom
-                (cfws
-                  (wsp))
                 (dotatom_text
                   (atom))))
             (domain
@@ -891,5 +1177,7 @@ a07bec5da9a9c86cfe34e4984e6713267d1bf9c4
                   (atom)))))))))
   (subjectheader
     (subject)
-    (subjectfield))
+    (subjectfield
+      (fws
+        (wsp))))
   (headertype))

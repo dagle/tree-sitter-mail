@@ -4,7 +4,7 @@
 enum TokenType {
   LINE_BREAK,
   // LWSP,
-  WSP,
+  // WSP,
   EOL,
   MAILQUOTE1,
   // MAILQOUTE2,
@@ -78,11 +78,11 @@ bool tree_sitter_mail_external_scanner_scan(
 	  lexer->result_symbol = LINE_BREAK;
 	  return true;
   }
-  if (valid_symbols[WSP] && (lexer->lookahead == ' ' || lexer->lookahead == '\t')) {
-	  lexer->advance(lexer, true);
-	  lexer->result_symbol = WSP;
-	  return true;
-  }
+  // if (valid_symbols[WSP] && (lexer->lookahead == ' ' || lexer->lookahead == '\t')) {
+	 //  lexer->advance(lexer, true);
+	 //  lexer->result_symbol = WSP;
+	 //  return true;
+  // }
   if (valid_symbols[EOL] && lexer->lookahead == '\0') {
 	  lexer->result_symbol = EOL;
 	  return true;

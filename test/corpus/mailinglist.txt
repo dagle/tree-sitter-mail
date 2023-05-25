@@ -55,11 +55,11 @@ footer
       (addresslist
         (internetaddress
           (mailbox
+            (fws
+              (wsp))
             (addrspec
               (local
                 (dotatom
-                  (cfws
-                    (wsp))
                   (dotatom_text
                     (atom))))
               (domain
@@ -74,11 +74,11 @@ footer
       (addresslist
         (internetaddress
           (mailbox
+            (fws
+              (wsp))
             (addrspec
               (local
                 (dotatom
-                  (cfws
-                    (wsp))
                   (dotatom_text
                     (atom))))
               (domain
@@ -88,18 +88,20 @@ footer
                     (atom)))))))))
     (subjectheader
       (subject)
-      (subjectfield))
+      (subjectfield
+        (fws
+          (wsp))))
     (addressheader
       (addrkind
         (replyto))
       (addresslist
         (internetaddress
           (mailbox
+            (fws
+              (wsp))
             (addrspec
               (local
                 (dotatom
-                  (cfws
-                    (wsp))
                   (dotatom_text
                     (atom))))
               (domain
@@ -110,13 +112,16 @@ footer
                     (atom)))))))))
     (header
       (headertype)
-      (headerentry))
+      (headerentry
+        (fws
+          (wsp))))
     (midheader
       (message_id)
       (message_idfield
         (msg_id
           (cfws
-            (wsp))
+            (fws
+              (wsp)))
           (dotatom_text
             (atom)
             (atom)
@@ -156,24 +161,37 @@ footer
               (wsp))))))
     (header
       (headertype)
-      (headerentry))
-    (header
-      (headertype)
-      (headerentry))
-    (header
-      (headertype)
-      (headerentry))
-    (header
-      (headertype)
       (headerentry
-        (lspw
+        (fws
           (wsp))))
     (header
       (headertype)
-      (headerentry))
+      (headerentry
+        (fws
+          (wsp))))
     (header
       (headertype)
-      (headerentry))
+      (headerentry
+        (fws
+          (wsp))))
+    (header
+      (headertype)
+      (headerentry
+        (fws
+          (wsp))
+        (fws
+          (line_break)
+          (wsp))))
+    (header
+      (headertype)
+      (headerentry
+        (fws
+          (wsp))))
+    (header
+      (headertype)
+      (headerentry
+        (fws
+          (wsp))))
     (addressheader
       (addrkind
         (sender))
@@ -184,10 +202,11 @@ footer
               (wsp))
             (phrase
               (word
-                (quoted_string)))
-            (angle_addr
+                (quoted_string))
               (cfws
-                (wsp))
+                (fws
+                  (wsp))))
+            (angle_addr
               (addrspec
                 (local
                   (dotatom

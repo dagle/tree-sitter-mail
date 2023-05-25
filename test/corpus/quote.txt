@@ -34,11 +34,11 @@ mailinglist-dev-public-owner@lists.devstuff.org.
       (addresslist
         (internetaddress
           (mailbox
+            (fws
+              (wsp))
             (addrspec
               (local
                 (dotatom
-                  (cfws
-                    (wsp))
                   (dotatom_text
                     (atom))))
               (domain
@@ -53,11 +53,11 @@ mailinglist-dev-public-owner@lists.devstuff.org.
       (addresslist
         (internetaddress
           (mailbox
+            (fws
+              (wsp))
             (addrspec
               (local
                 (dotatom
-                  (cfws
-                    (wsp))
                   (dotatom_text
                     (atom))))
               (domain

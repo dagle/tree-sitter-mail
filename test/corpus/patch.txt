@@ -24,19 +24,21 @@ oaeuauo
       (addresslist
         (internetaddress
           (mailbox
+            (fws
+              (wsp))
             (phrase
               (word
                 (atom2
-                  (cfws
-                    (wsp))
                   (atom)
                   (cfws
-                    (wsp))))
+                    (fws
+                      (wsp)))))
               (word
                 (atom2
                   (atom)
                   (cfws
-                    (wsp)))))
+                    (fws
+                      (wsp))))))
             (angle_addr
               (addrspec
                 (local
@@ -78,7 +80,9 @@ oaeuauo
               (wsp))))))
     (subjectheader
       (subject)
-      (subjectfield)))
+      (subjectfield
+        (fws
+          (wsp)))))
   (emailbody
     (block
       (line)
