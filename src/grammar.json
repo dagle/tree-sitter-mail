@@ -1688,33 +1688,50 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "block"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "footer"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+          "name": "blocks"
         }
       ]
     },
-    "block": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "REPEAT1",
-          "content": {
-            "type": "SYMBOL",
-            "name": "line"
-          }
+    "blocks": {
+      "type": "PREC_RIGHT",
+      "value": 8,
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "SYMBOL",
+          "name": "block"
         }
-      ]
+      }
+    },
+    "block": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "REPEAT1",
+            "content": {
+              "type": "SYMBOL",
+              "name": "line"
+            }
+          },
+          {
+            "type": "REPEAT1",
+            "content": {
+              "type": "SYMBOL",
+              "name": "quote1"
+            }
+          },
+          {
+            "type": "REPEAT1",
+            "content": {
+              "type": "SYMBOL",
+              "name": "quote2"
+            }
+          }
+        ]
+      }
     },
     "_blank": {
       "type": "FIELD",
@@ -1725,16 +1742,8 @@
       }
     },
     "line": {
-      "type": "TOKEN",
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "PATTERN",
-            "value": "[^\\r\\n]+"
-          }
-        ]
-      }
+      "type": "PATTERN",
+      "value": "[^\\n]+"
     },
     "line_line": {
       "type": "TOKEN",
@@ -1743,7 +1752,7 @@
         "members": [
           {
             "type": "PATTERN",
-            "value": "[^\\r\\n]+"
+            "value": "[^\\n]+"
           }
         ]
       }
@@ -1755,7 +1764,7 @@
         "members": [
           {
             "type": "PATTERN",
-            "value": "[^\\r\\n]+"
+            "value": "[^\\n]+"
           }
         ]
       }
@@ -1767,7 +1776,7 @@
         "members": [
           {
             "type": "PATTERN",
-            "value": "[^\\r\\n]+"
+            "value": "[^\\n]+"
           }
         ]
       }
@@ -1779,7 +1788,7 @@
         "members": [
           {
             "type": "PATTERN",
-            "value": "[^\\r\\n]+"
+            "value": "[^\\n]+"
           }
         ]
       }
@@ -1807,7 +1816,7 @@
     },
     "_text": {
       "type": "PATTERN",
-      "value": ".+"
+      "value": "[ \\t]*[^>][^\\n]+"
     },
     "_quote": {
       "type": "TOKEN",

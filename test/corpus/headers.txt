@@ -1123,8 +1123,9 @@ Testing.
             (atom)
             (atom))))))
   (emailbody
-    (block
-      (line))))
+    (blocks
+      (block
+        (line)))))
 
 ================================================================================
 Bad-fold-no-indent

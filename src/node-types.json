@@ -141,6 +141,29 @@
         {
           "type": "line",
           "named": true
+        },
+        {
+          "type": "quote1",
+          "named": true
+        },
+        {
+          "type": "quote2",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "blocks",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
         }
       ]
     }
@@ -385,34 +408,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "footer",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "footer",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "footersep",
-          "named": true
-        },
-        {
-          "type": "footertext",
+          "type": "blocks",
           "named": true
         }
       ]

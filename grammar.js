@@ -383,23 +383,24 @@ module.exports = grammar({
 		"\""
 	),
 	
-	// emailbody: $ => repeat1(choice(
-	// 	$._quoted,
-	// 	$.textline,
-	// )),
-	
 	emailbody: $ => seq(
-		$.block,
-		optional($.footer)
+		$.blocks,
+		// optional($.footer)
+	),
+	
+	blocks: $ => prec.right(8,
+		repeat1($.block)
 	),
 
 	// _fieldbody: $ => seq($._bodycontent, 
 	// 	repeat(seq(optional($._seperator), $._bodycontent)),
 	// 	$._line_break
 	// ),
-    block: ($) => seq(
+    block: $ => prec.right(choice(
 	  repeat1($.line),
-    ),
+	  repeat1($.quote1),
+	  repeat1($.quote2),
+    )),
 
     _blank: () => field('blank', '\n'),
 	// block: $ => seq(
@@ -410,19 +411,19 @@ module.exports = grammar({
 	// 	seq($.textline, optional(token.immediate("\n")))
 	// ),
 	// textline: $ => token(prec(-2, /.*/)),
-	line: $ => token(seq(/[^\r\n]+/)),
-	line_line: $ => token(seq(/[^\r\n]+/)),
+	line: $ => /[^\n]+/,
+	line_line: $ => token(seq(/[^\n]+/)),
 
-	textline3: $ => token(seq(/[^\r\n]+/)),
-	textline: $ => token(seq(/[^\r\n]+/)),
-	textline2: $ => token(seq(/[^\r\n]+/,)),
+	textline3: $ => token(seq(/[^\n]+/)),
+	textline: $ => token(seq(/[^\n]+/)),
+	textline2: $ => token(seq(/[^\n]+/,)),
 	// textblock: $ => repeat1(seq($.textline, $._line_break)),
 	// textblock: $ => repeat1(seq($.textline, token.immediate("\n"))),
 
     _eol: $ => choice('\n', '\r', $._eof),
 
 	_textline: $ => /.+/,
-	_text: $ => /.+/,
+	_text: $ => /[ \t]*[^>][^\n]+/,
 	_quote: $ => token(prec(2, /[ \t]*>/)),
     blank: $ => field('blank', '\n'),
 

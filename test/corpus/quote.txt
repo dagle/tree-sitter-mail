@@ -66,17 +66,25 @@ mailinglist-dev-public-owner@lists.devstuff.org.
                     (atom)
                     (atom))))))))))
   (emailbody
-    (block
-      (line)
-      (line)
-      (line)
-      (line)
-      (line)
-      (line)
-      (line)
-      (line)
-      (line)
-      (line)
-      (line)
-      (line)
-      (line))))
+    (blocks
+      (block
+        (quote1))
+      (block
+        (line))
+      (block
+        (quote1))
+      (block
+        (line)
+        (line))
+      (block
+        (quote1)
+        (quote1
+          (MISSING _text))
+        (quote1))
+      (block
+        (line)
+        (line)
+        (line)
+        (line)
+        (line)
+        (line)))))

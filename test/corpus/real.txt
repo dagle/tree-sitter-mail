@@ -7,20 +7,16 @@ Cc: arch-dev-public@lists.archlinux.org
 Date: Fri, 3 Mar 2023 15:25:18 +0100
 Subject: Re: Dependencies from pkg-config files
 
-apa: bepa
-ouaeuaeou
-
+oaueoauo
+eoauauo
 
 > - Some missing dependencies (gobject-introspection, systemd, util-
 > linux) are caused because the pkg-config files are packaged separately
 > from the libraries. This shouldn't happen in our distribution, because
 > we don't split development packages. pkg-config files and the related
 > header files should be in the same package where the library is found.
-
-oauou
-auoe
--- 
-aoeu oauoeau
+> > bepa cepa
+> > meeeeeeeeeeepa!
 --------------------------------------------------------------------------------
 
 (message
@@ -141,17 +137,15 @@ aoeu oauoeau
         (fws
           (wsp)))))
   (emailbody
-    (block
-      (line)
-      (line)
-      (line)
-      (line)
-      (line)
-      (line)
-      (line)
-      (line)
-      (line))
-    (footer
-      (footersep)
-      (footertext
-        (footerline)))))
+    (blocks
+      (block
+        (line)
+        (line))
+      (block
+        (quote1)
+        (quote1)
+        (quote1)
+        (quote1)
+        (quote1)
+        (quote1)
+        (quote1)))))

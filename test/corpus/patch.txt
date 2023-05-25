@@ -84,11 +84,12 @@ oaeuauo
         (fws
           (wsp)))))
   (emailbody
-    (block
-      (line)
-      (line)
-      (line)
-      (line)
-      (line)
-      (line)
-      (line))))
+    (blocks
+      (block
+        (line)
+        (line)
+        (line)
+        (line)
+        (line)
+        (line)
+        (line)))))
