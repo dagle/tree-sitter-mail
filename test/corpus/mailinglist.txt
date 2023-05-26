@@ -140,25 +140,25 @@ footer
             (wsp))
           (day_name))
         (datefield
-          (day
-            (fws
-              (wsp))
-            (fws
-              (wsp)))
+          (fws
+            (wsp))
+          (day)
+          (fws
+            (wsp))
           (month)
-          (year
-            (fws
-              (wsp))
-            (fws
-              (wsp))))
+          (fws
+            (wsp))
+          (year)
+          (fws
+            (wsp)))
         (time
           (time_of_day
             (hour)
             (minute)
             (second))
-          (zone
-            (fws
-              (wsp))))))
+          (fws
+            (wsp))
+          (zone))))
     (header
       (headertype)
       (headerentry
@@ -222,6 +222,8 @@ footer
     (blocks
       (block
         (line)
+        (line))
+      (block
         (line)
         (line)
         (line)
@@ -229,6 +231,8 @@ footer
         (line)
         (line)
         (line)
+        (line))
+      (block
         (line)
         (line)
         (line)
@@ -236,8 +240,8 @@ footer
         (line)
         (line)
         (line)
-        (line)
-        (line)
-        (line)
-        (line)
-        (line)))))
+        (line)))
+    (footer
+      (footersep)
+      (footertext
+        (footerline)))))

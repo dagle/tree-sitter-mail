@@ -1,6 +1,169 @@
 ================================================================================
 Real
 ================================================================================
+From: Balló György <bgyorgy@archlinux.org>
+To: arch-dev-public@lists.archlinux.org
+Date: Thu, 02 Mar 2023 23:40:22 +0100
+Subject: Re: Dependencies from pkg-config files
+
+2023. 03.  2, csütörtök keltezéssel 20.37-kor Morten Linderud ezt írta:
+> On Thu, Mar 02, 2023 at 08:27:50PM +0100, Balló György wrote:
+> > 
+> > If no objections, I'll open tasks in Flyspray for these issues.
+> > 
+> 
+> 
+> Is there any reason why todo-lists are not suitable for this?
+> 
+
+
+Because I didn't scan all packages (it would be hard to do that with
+namcap, because it works only on installed packages), and there are two
+different tasks with a few packages:
+
+Move pkg-config and header files:
+- gobject-introspection -> gobject-introspection-runtime
+- systemd -> systemd-libs
+- util-linux -> util-linux-libs
+
+Add missing dependencies (move from makedepends to depends):
+- gst-plugins-bad-libs: wayland-protocols
+- libepoxy: libglvnd
+- libice: xorgproto
+- libxau: xorgproto
+- libxdmcp: xorgproto
+- libxfont2: xorgproto
+- libxi: libxfixes
+
+
+--
+Balló György
+Package Maintainer / Trusted User
+--------------------------------------------------------------------------------
+
+(message
+  (headers
+    (addressheader
+      (addrkind
+        (from))
+      (addresslist
+        (internetaddress
+          (mailbox
+            (fws
+              (wsp))
+            (phrase
+              (word
+                (atom2
+                  (atom)
+                  (cfws
+                    (fws
+                      (wsp)))))
+              (word
+                (atom2
+                  (atom)
+                  (cfws
+                    (fws
+                      (wsp))))))
+            (angle_addr
+              (addrspec
+                (local
+                  (dotatom
+                    (dotatom_text
+                      (atom))))
+                (domain
+                  (dotatom
+                    (dotatom_text
+                      (atom)
+                      (atom))))))))))
+    (addressheader
+      (addrkind
+        (to))
+      (addresslist
+        (internetaddress
+          (mailbox
+            (fws
+              (wsp))
+            (addrspec
+              (local
+                (dotatom
+                  (dotatom_text
+                    (atom))))
+              (domain
+                (dotatom
+                  (dotatom_text
+                    (atom)
+                    (atom)
+                    (atom)))))))))
+    (dateheader
+      (date)
+      (date_time
+        (day_of_week
+          (fws
+            (wsp))
+          (day_name))
+        (datefield
+          (fws
+            (wsp))
+          (day)
+          (fws
+            (wsp))
+          (month)
+          (fws
+            (wsp))
+          (year)
+          (fws
+            (wsp)))
+        (time
+          (time_of_day
+            (hour)
+            (minute)
+            (second))
+          (fws
+            (wsp))
+          (zone))))
+    (subjectheader
+      (subject)
+      (subjectfield
+        (fws
+          (wsp)))))
+  (emailbody
+    (blocks
+      (block
+        (line))
+      (block
+        (quote1)
+        (quote1)
+        (quote1)
+        (quote1)
+        (quote1)
+        (quote1)
+        (quote1)
+        (quote1))
+      (block
+        (line)
+        (line))
+      (block
+        (line)
+        (line)
+        (line)
+        (line)
+        (line)
+        (line)
+        (line)
+        (line))
+      (block
+        (line)
+        (line)
+        (line)
+        (line)
+        (line)
+        (line)
+        (line)
+        (line)))))
+
+================================================================================
+Real2
+================================================================================
 From: Christian Hesse <list@eworm.de>
 To: Balló György <bgyorgy@archlinux.org>
 Cc: arch-dev-public@lists.archlinux.org
@@ -10,13 +173,20 @@ Subject: Re: Dependencies from pkg-config files
 oaueoauo
 eoauauo
 
-> - Some missing dependencies (gobject-introspection, systemd, util-
-> linux) are caused because the pkg-config files are packaged separately
+> aoeuue
+>> - Some missing dependencies (gobject-introspection, systemd, util-
+>> linux) are caused because the pkg-config files are packaged separately
+>>>>> eoaueo
+>> from the libraries. This shouldn't happen in our distribution, because
 > from the libraries. This shouldn't happen in our distribution, because
-> we don't split development packages. pkg-config files and the related
-> header files should be in the same package where the library is found.
-> > bepa cepa
-> > meeeeeeeeeeepa!
+>> we don't split development packages. pkg-config files and the related
+>> header files should be in the same package where the library is found.
+
+-- 
+main(a){char*c=/*    Schoene Gruesse                         */"B?IJj;MEH"
+"CX:;",b;for(a/*    Best regards             my address:    */=0;b=c[a++];)
+putchar(b-1/(/*    Chris            cc -ox -xc - && ./x    */b/42*2-3)*42);}
+
 --------------------------------------------------------------------------------
 
 (message
@@ -112,25 +282,25 @@ eoauauo
             (wsp))
           (day_name))
         (datefield
-          (day
-            (fws
-              (wsp))
-            (fws
-              (wsp)))
+          (fws
+            (wsp))
+          (day)
+          (fws
+            (wsp))
           (month)
-          (year
-            (fws
-              (wsp))
-            (fws
-              (wsp))))
+          (fws
+            (wsp))
+          (year)
+          (fws
+            (wsp)))
         (time
           (time_of_day
             (hour)
             (minute)
             (second))
-          (zone
-            (fws
-              (wsp))))))
+          (fws
+            (wsp))
+          (zone))))
     (subjectheader
       (subject)
       (subjectfield
@@ -142,10 +312,22 @@ eoauauo
         (line)
         (line))
       (block
-        (quote1)
-        (quote1)
-        (quote1)
-        (quote1)
-        (quote1)
-        (quote1)
-        (quote1)))))
+        (quote1))
+      (block
+        (quote2)
+        (quote2))
+      (block
+        (quote5))
+      (block
+        (quote2))
+      (block
+        (quote1))
+      (block
+        (quote2)
+        (quote2)))
+    (footer
+      (footersep)
+      (footertext
+        (footerline)
+        (footerline)
+        (footerline)))))

@@ -77,10 +77,9 @@ mailinglist-dev-public-owner@lists.devstuff.org.
         (line)
         (line))
       (block
-        (quote1)
-        (quote1
-          (MISSING _text))
         (quote1))
+      (block
+        (quote2))
       (block
         (line)
         (line)

@@ -149,6 +149,30 @@
         {
           "type": "quote2",
           "named": true
+        },
+        {
+          "type": "quote3",
+          "named": true
+        },
+        {
+          "type": "quote4",
+          "named": true
+        },
+        {
+          "type": "quote5",
+          "named": true
+        },
+        {
+          "type": "quote6",
+          "named": true
+        },
+        {
+          "type": "quote7",
+          "named": true
+        },
+        {
+          "type": "quote8",
+          "named": true
         }
       ]
     }
@@ -286,6 +310,10 @@
           "named": true
         },
         {
+          "type": "fws",
+          "named": true
+        },
+        {
           "type": "month",
           "named": true
         },
@@ -318,17 +346,7 @@
   {
     "type": "day",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "fws",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "day_name",
@@ -408,11 +426,34 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "blocks",
+          "named": true
+        },
+        {
+          "type": "footer",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "footer",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "footersep",
+          "named": true
+        },
+        {
+          "type": "footertext",
           "named": true
         }
       ]
@@ -844,6 +885,16 @@
     "fields": {}
   },
   {
+    "type": "quote7",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "quote8",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "quoted_string",
     "named": true,
     "fields": {},
@@ -960,6 +1011,10 @@
       "required": true,
       "types": [
         {
+          "type": "fws",
+          "named": true
+        },
+        {
           "type": "time_of_day",
           "named": true
         },
@@ -1020,40 +1075,12 @@
   {
     "type": "year",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "fws",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "zone",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "fws",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "\n",
-    "named": false
-  },
-  {
-    "type": "\r",
-    "named": false
+    "fields": {}
   },
   {
     "type": "\"",

@@ -25,6 +25,7 @@ module.exports = grammar({
 	  [$.ccontent],
 	  [$.date_time],
 	  [$.cfws],
+	  [$.block],
 	  [$.cfws, $.mailbox],
 	  [$.mailgroup, $.mailbox, $.cfws],
   ],
@@ -142,17 +143,19 @@ module.exports = grammar({
 	),
 	
 	datefield: $ => seq(
-		$.day,
+		$._day,
 		$.month,
-		$.year
+		$._year
 	),
-	day: $ => seq(
+	_day: $ => seq(
 		optional($.fws),
-		choice(
-			/\d/,
-			/\d\d/,
-		),
+		$.day,
 		$.fws,
+	),
+	
+	day: $ => choice(
+		/\d/,
+		/\d\d/,
 	),
 
 	month: $ => choice(
@@ -160,15 +163,20 @@ module.exports = grammar({
 		"May", "Jun", "Jul", "Aug",
 		"Sep", "Oct", "Nov", "Dec"
 	),
-	year: $ => seq(
+	_year: $ => seq(
 		$.fws,
-		/\d\d\d\d/,
-		repeat(/\d/),
+		$.year,
 		$.fws,
 	),
+
+	year: _ => seq(
+		/\d\d\d\d/,
+		repeat(/\d/)
+	),
+
 	time: $ => seq(
 		$.time_of_day,
-		$.zone,
+		$._zone,
 	),
 	
 	time_of_day: $ => seq(
@@ -187,20 +195,24 @@ module.exports = grammar({
 	minute: _ => /\d\d/,
 	second: _ => /\d\d/,
 	
-	zone: $ => seq(
+	_zone: $ => seq(
 		$.fws, 
+		$.zone,
+	),
+
+	zone: _ => seq(
 		choice("+", "-"),
 		/\d\d\d\d/,
 	),
 	
 	message_idfield: $ => seq(
 		$.msg_id, 
-		$._line_break
+		$._eol,
 	),
 	
 	references_field: $ => seq(
 		repeat1($.msg_id),
-		$._line_break
+		$._eol,
 	),
 	
 	msg_id: $ => seq(
@@ -385,86 +397,114 @@ module.exports = grammar({
 	
 	emailbody: $ => seq(
 		$.blocks,
-		// optional($.footer)
+		optional($.footer)
 	),
 	
-	blocks: $ => prec.right(8,
+	blocks: $ => (seq(
 		repeat1($.block)
-	),
+	)),
 
-	// _fieldbody: $ => seq($._bodycontent, 
-	// 	repeat(seq(optional($._seperator), $._bodycontent)),
-	// 	$._line_break
-	// ),
-    block: $ => prec.right(choice(
+    block: $ => choice(
 	  repeat1($.line),
 	  repeat1($.quote1),
 	  repeat1($.quote2),
-    )),
+	  repeat1($.quote3),
+	  repeat1($.quote4),
+	  repeat1($.quote5),
+	  repeat1($.quote6),
+	  repeat1($.quote7),
+	  repeat1($.quote8),
+    ),
 
-    _blank: () => field('blank', '\n'),
-	// block: $ => seq(
-	// 	$.textline
-	// 	// seq($.textline, optional(token.immediate("\n")))
-	// ),
-	// block: $ => repeat1(
-	// 	seq($.textline, optional(token.immediate("\n")))
-	// ),
-	// textline: $ => token(prec(-2, /.*/)),
 	line: $ => /[^\n]+/,
-	line_line: $ => token(seq(/[^\n]+/)),
 
-	textline3: $ => token(seq(/[^\n]+/)),
-	textline: $ => token(seq(/[^\n]+/)),
-	textline2: $ => token(seq(/[^\n]+/,)),
-	// textblock: $ => repeat1(seq($.textline, $._line_break)),
-	// textblock: $ => repeat1(seq($.textline, token.immediate("\n"))),
+    _eol: $ => choice($._line_break, $._eof),
 
-    _eol: $ => choice('\n', '\r', $._eof),
-
-	_textline: $ => /.+/,
-	_text: $ => /[ \t]*[^>][^\n]+/,
-	_quote: $ => token(prec(2, /[ \t]*>/)),
-    blank: $ => field('blank', '\n'),
+	_text: $ => /[^\n]+/,
+	_quote1: $ => token(prec(1, 
+		">"
+	)),
+	_quote2: $ => token(prec(2, seq(
+		">",
+		">",
+	))),
+	_quote3: $ => token(prec(3, seq(
+		">", 
+		">",
+		">",
+	))),
+	_quote4: $ => token(prec(4, seq(
+		">", 
+		">", 
+		">",
+		">",
+	))),
+	_quote5: $ => token(prec(5, seq(
+		">", 
+		">", 
+		">", 
+		">",
+		">",
+	))),
+	_quote6: $ => token(prec(6, seq(
+		">", 
+		">", 
+		">", 
+		">", 
+		">",
+		">",
+	))),
+	_quote7: $ => token(prec(7, seq(
+		">", 
+		">", 
+		">", 
+		">", 
+		">", 
+		">",
+		">",
+	))),
+	_quote8: $ => token(prec(8, seq(
+		">", 
+		">", 
+		">", 
+		">", 
+		">", 
+		">", 
+		">",
+		">",
+	))),
 
 	text: $ => /.*/,
 	quote1: $ => seq(
-		$._quote,
+		$._quote1,
 		$._text,
 	),
 	quote2: $ => seq(
-		$._quote,
-		$._quote,
+		$._quote2,
 		$._text,
 	),
 	quote3: $ => seq(
-		$._quote,
-		$._quote,
-		$._quote,
+		$._quote3,
 		$._text,
 	),
 	quote4: $ => seq(
-		$._quote,
-		$._quote,
-		$._quote,
-		$._quote,
+		$._quote4,
 		$._text,
 	),
 	quote5: $ => seq(
-		$._quote,
-		$._quote,
-		$._quote,
-		$._quote,
-		$._quote,
+		$._quote5,
 		$._text,
 	),
 	quote6: $ => seq(
-		$._quote,
-		$._quote,
-		$._quote,
-		$._quote,
-		$._quote,
-		$._quote,
+		$._quote6,
+		$._text,
+	),
+	quote7: $ => seq(
+		$._quote7,
+		$._text,
+	),
+	quote8: $ => seq(
+		$._quote8,
 		$._text,
 	),
 	

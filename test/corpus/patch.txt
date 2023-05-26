@@ -59,25 +59,25 @@ oaeuauo
             (wsp))
           (day_name))
         (datefield
-          (day
-            (fws
-              (wsp))
-            (fws
-              (wsp)))
+          (fws
+            (wsp))
+          (day)
+          (fws
+            (wsp))
           (month)
-          (year
-            (fws
-              (wsp))
-            (fws
-              (wsp))))
+          (fws
+            (wsp))
+          (year)
+          (fws
+            (wsp)))
         (time
           (time_of_day
             (hour)
             (minute)
             (second))
-          (zone
-            (fws
-              (wsp))))))
+          (fws
+            (wsp))
+          (zone))))
     (subjectheader
       (subject)
       (subjectfield

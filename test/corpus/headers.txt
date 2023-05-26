@@ -110,15 +110,9 @@ Message-ID: <testabcd.1234@silly.test> (aeuaoeu)
             (comment)))))))
 
 ================================================================================
-Multiname
+Date
 ================================================================================
-Date: Thu,
-	 13
-	   Feb
-		 1969
-	 23:32
-			  -0330
-
+Date: Thu, 02 Mar 2023 23:40:22 +0100
 --------------------------------------------------------------------------------
 
 (message
@@ -131,29 +125,72 @@ Date: Thu,
             (wsp))
           (day_name))
         (datefield
-          (day
-            (fws
-              (line_break)
-              (wsp))
-            (fws
-              (line_break)
-              (wsp)))
+          (fws
+            (wsp))
+          (day)
+          (fws
+            (wsp))
           (month)
-          (year
-            (fws
-              (line_break)
-              (wsp))
-            (fws
-              (line_break)
-              (wsp))))
+          (fws
+            (wsp))
+          (year)
+          (fws
+            (wsp)))
+        (time
+          (time_of_day
+            (hour)
+            (minute)
+            (second))
+          (fws
+            (wsp))
+          (zone)))
+      (MISSING _line_break))))
+
+================================================================================
+Multiname
+================================================================================
+Date: Thu,
+	 13
+	   Feb
+		 1969
+	 23:32
+			  -0330
+--------------------------------------------------------------------------------
+
+(message
+  (headers
+    (dateheader
+      (date)
+      (date_time
+        (day_of_week
+          (fws
+            (wsp))
+          (day_name))
+        (datefield
+          (fws
+            (line_break)
+            (wsp))
+          (day)
+          (fws
+            (line_break)
+            (wsp))
+          (month)
+          (fws
+            (line_break)
+            (wsp))
+          (year)
+          (fws
+            (line_break)
+            (wsp)))
         (time
           (time_of_day
             (hour)
             (minute))
-          (zone
-            (fws
-              (line_break)
-              (wsp))))))))
+          (fws
+            (line_break)
+            (wsp))
+          (zone)))
+      (MISSING _line_break))))
 
 ================================================================================
 Addr-Spec
@@ -739,25 +776,25 @@ Sender: "mailinglist-dev-public" <mailinglist-dev-public-bounces@lists.devstuff.
             (wsp))
           (day_name))
         (datefield
-          (day
-            (fws
-              (wsp))
-            (fws
-              (wsp)))
+          (fws
+            (wsp))
+          (day)
+          (fws
+            (wsp))
           (month)
-          (year
-            (fws
-              (wsp))
-            (fws
-              (wsp))))
+          (fws
+            (wsp))
+          (year)
+          (fws
+            (wsp)))
         (time
           (time_of_day
             (hour)
             (minute)
             (second))
-          (zone
-            (fws
-              (wsp))))))
+          (fws
+            (wsp))
+          (zone))))
     (header
       (headertype)
       (headerentry
@@ -1082,29 +1119,29 @@ Testing.
             (wsp))
           (day_name))
         (datefield
-          (day
-            (fws
-              (line_break)
-              (wsp))
-            (fws
-              (line_break)
-              (wsp)))
+          (fws
+            (line_break)
+            (wsp))
+          (day)
+          (fws
+            (line_break)
+            (wsp))
           (month)
-          (year
-            (fws
-              (line_break)
-              (wsp))
-            (fws
-              (line_break)
-              (wsp))))
+          (fws
+            (line_break)
+            (wsp))
+          (year)
+          (fws
+            (line_break)
+            (wsp)))
         (time
           (time_of_day
             (hour)
             (minute))
-          (zone
-            (fws
-              (line_break)
-              (wsp))))
+          (fws
+            (line_break)
+            (wsp))
+          (zone))
         (cfws
           (fws
             (wsp))
